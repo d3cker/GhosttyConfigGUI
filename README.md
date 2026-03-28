@@ -28,7 +28,7 @@ Ghostty uses a plain text config file (`~/.config/ghostty/config.ghostty`). This
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python run_gui.py
+python3 main.py
 ```
 
 ## Config File Location

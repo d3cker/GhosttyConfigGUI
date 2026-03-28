@@ -111,8 +111,7 @@ CONFIG_OPTIONS: list[ConfigOption] = [
     ConfigOption("selection-foreground", OptType.COLOR, "Colors & Theme", "", "Selected text foreground (blank = invert)"),
     ConfigOption("selection-background", OptType.COLOR, "Colors & Theme", "", "Selected text background (blank = invert)"),
     ConfigOption("minimum-contrast", OptType.FLOAT, "Colors & Theme", "1", "Minimum contrast ratio (1.0 - 21.0)", min_val=1.0, max_val=21.0),
-    ConfigOption("palette", OptType.COLOR, "Colors & Theme", "",
-                 "Color palette entries (0-255). Format: N=#RRGGBB", repeatable=True),
+    # Note: "palette" is not listed here - it is managed by the PalettePreviewPanel
     ConfigOption("palette-generate", OptType.BOOLEAN, "Colors & Theme", "false",
                  "Auto-generate extended palette from base 16 colors"),
     ConfigOption("palette-harmonious", OptType.BOOLEAN, "Colors & Theme", "false",

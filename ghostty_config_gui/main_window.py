@@ -26,6 +26,36 @@ from .config_io import default_config_path, parse_config, write_config
 from .themes import list_themes, load_theme, ThemeColors
 
 
+# ── Font Resolution Helper ────────────────────────────────────────────────────
+
+def _resolve_font(name: str) -> QFont:
+    """Resolve a font name like 'Family Style' into a QFont with proper style.
+
+    Qt needs family and style set separately. We check if the name matches
+    a known 'family + style' combination by iterating known families.
+    """
+    if not name:
+        return QFont("monospace")
+
+    # First try exact family match (no style suffix)
+    families = QFontDatabase.families()
+    if name in families:
+        return QFont(name)
+
+    # Try to find a family that is a prefix of the name, with the rest being a style
+    # Longer family matches first to avoid e.g. "Noto Sans" matching before "Noto Sans Mono"
+    for fam in sorted(families, key=len, reverse=True):
+        if name.startswith(fam) and len(name) > len(fam):
+            style = name[len(fam):].strip()
+            if style and style in QFontDatabase.styles(fam):
+                font = QFont(fam)
+                font.setStyleName(style)
+                return font
+
+    # Fallback: let Qt try to resolve it
+    return QFont(name)
+
+
 # ── Color Swatch Button ──────────────────────────────────────────────────────
 
 class ColorButton(QPushButton):
@@ -192,9 +222,14 @@ class OptionEditor(QWidget):
             self._editor = QComboBox()
             self._editor.setEditable(True)
             self._editor.setMinimumWidth(250)
-            families = sorted(set(QFontDatabase.families()))
             self._editor.addItem("(default)")
-            self._editor.addItems(families)
+            families = sorted(set(QFontDatabase.families()))
+            for fam in families:
+                self._editor.addItem(fam)
+                styles = QFontDatabase.styles(fam)
+                for style in sorted(styles):
+                    if style not in ("Regular", "Normal"):
+                        self._editor.addItem(f"{fam} {style}")
             if current_value:
                 idx = self._editor.findText(current_value, Qt.MatchFlag.MatchFixedString)
                 if idx >= 0:
@@ -340,11 +375,7 @@ class FontPreviewPanel(QGroupBox):
         self._update_preview()
 
     def _update_preview(self):
-        font = QFont()
-        if self._font_name:
-            font.setFamily(self._font_name)
-        else:
-            font.setFamily("monospace")
+        font = _resolve_font(self._font_name or "monospace")
         font.setPointSizeF(self._font_size)
         self._preview.setFont(font)
 
@@ -358,6 +389,7 @@ class PalettePreviewPanel(QGroupBox):
     def __init__(self, parent=None):
         super().__init__("Color Palette (ANSI 16)", parent)
         self._colors = dict(DEFAULT_PALETTE)
+        self._dirty: set[int] = set()  # indices touched by user or loaded from config
         self._buttons: dict[int, ColorButton] = {}
         self._setup_ui()
 
@@ -394,15 +426,22 @@ class PalettePreviewPanel(QGroupBox):
 
     def _on_color_changed(self, idx: int, color: str):
         self._colors[idx] = color
+        self._dirty.add(idx)
         self.palette_changed.emit(idx, color)
 
-    def set_color(self, idx: int, color: str):
+    def set_color(self, idx: int, color: str, from_config: bool = False):
         self._colors[idx] = color
+        if from_config:
+            self._dirty.add(idx)
         if idx in self._buttons:
             self._buttons[idx].color = color
 
-    def get_colors(self) -> dict[int, str]:
-        return dict(self._colors)
+    def get_dirty_colors(self) -> dict[int, str]:
+        """Return only palette entries that were loaded from config or changed by user."""
+        return {idx: self._colors[idx] for idx in sorted(self._dirty)}
+
+    def reset_dirty(self):
+        self._dirty.clear()
 
 
 # ── Terminal Preview Panel ────────────────────────────────────────────────────
@@ -688,7 +727,6 @@ class GhosttyConfigWindow(QMainWindow):
 
         # Left panel: search + category list
         left = QWidget()
-        left.setFixedWidth(175)
         left_layout = QVBoxLayout(left)
         left_layout.setContentsMargins(8, 8, 4, 8)
 
@@ -697,7 +735,7 @@ class GhosttyConfigWindow(QMainWindow):
         left_layout.addWidget(self._search)
 
         self._cat_list = QListWidget()
-        self._cat_list.setFixedWidth(160)
+        self._cat_list.setMinimumWidth(170)
         for cat in CATEGORIES:
             item = QListWidgetItem(cat)
             item.setSizeHint(QSize(0, 32))
@@ -734,7 +772,7 @@ class GhosttyConfigWindow(QMainWindow):
         right_layout.addStretch()
         splitter.addWidget(right)
 
-        splitter.setSizes([175, 700, 400])
+        splitter.setSizes([195, 685, 400])
 
         # Build category pages
         self._category_pages: dict[str, CategoryPage] = {}
@@ -848,6 +886,9 @@ class GhosttyConfigWindow(QMainWindow):
             for name, val in page.get_dirty_values().items():
                 if not val or val == "(default)":
                     continue
+                # Palette is managed by the palette preview panel, skip here
+                if name == "palette":
+                    continue
                 opt = next((o for o in CONFIG_OPTIONS if o.name == name), None)
                 if opt and opt.repeatable and name in self._values and len(self._values[name]) > 1:
                     vals = list(self._values[name])
@@ -855,11 +896,11 @@ class GhosttyConfigWindow(QMainWindow):
                     result[name] = vals
                 else:
                     result[name] = [val]
-        # Also include palette colors from preview (only if changed from defaults)
-        palette = self._palette_preview.get_colors()
-        for idx, color in palette.items():
-            if color != DEFAULT_PALETTE.get(idx, ""):
-                result.setdefault("palette", []).append(f"{idx}={color}")
+
+        # Build palette entries from dirty colors only (user-changed or from config).
+        palette = self._palette_preview.get_dirty_colors()
+        if palette:
+            result["palette"] = [f"{idx}={color}" for idx, color in palette.items()]
         return result
 
     # ── Slot handlers ─────────────────────────────────────────
@@ -879,9 +920,7 @@ class GhosttyConfigWindow(QMainWindow):
             self._terminal_preview.set_font(family=value)
         elif name == "font-size":
             try:
-                size = float(value)
-                self._font_preview.set_font("", size)
-                self._terminal_preview.set_font(size=size)
+                self._font_preview.set_font("", float(value))
             except ValueError:
                 pass
         elif name == "background":
@@ -903,19 +942,22 @@ class GhosttyConfigWindow(QMainWindow):
         self._terminal_preview.set_palette({idx: color})
 
     def _apply_theme_preview(self, theme_name: str):
-        """Load and apply a theme to all preview panels."""
+        """Load and apply a theme to all preview panels (visual only, not saved)."""
         if not theme_name:
             return
         theme = load_theme(theme_name)
         if not theme:
             return
         self._terminal_preview.apply_theme(theme)
-        # Update palette preview swatches
+        # Update palette preview swatches for display only - theme name is
+        # what gets saved, not the individual palette colors.
         for idx, color in theme.palette.items():
-            self._palette_preview.set_color(idx, color)
+            self._palette_preview.set_color(idx, color, from_config=False)
 
     def _apply_previews_from_config(self):
         v = self._values
+        # Reset palette dirty state before applying config
+        self._palette_preview.reset_dirty()
         # Apply theme first (individual colors override after)
         if "theme" in v:
             self._apply_theme_preview(v["theme"][0])
@@ -924,9 +966,7 @@ class GhosttyConfigWindow(QMainWindow):
             self._terminal_preview.set_font(family=v["font-family"][0])
         if "font-size" in v:
             try:
-                size = float(v["font-size"][0])
-                self._font_preview.set_font("", size)
-                self._terminal_preview.set_font(size=size)
+                self._font_preview.set_font("", float(v["font-size"][0]))
             except ValueError:
                 pass
         if "background" in v:
@@ -949,7 +989,7 @@ class GhosttyConfigWindow(QMainWindow):
                     idx_s, _, color = entry.partition("=")
                     try:
                         idx = int(idx_s)
-                        self._palette_preview.set_color(idx, color)
+                        self._palette_preview.set_color(idx, color, from_config=True)
                         self._terminal_preview.set_palette({idx: color})
                     except ValueError:
                         pass
