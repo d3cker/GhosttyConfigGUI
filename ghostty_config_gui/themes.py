@@ -4,6 +4,7 @@ Load Ghostty themes from the system theme directory.
 
 import os
 import subprocess
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -22,7 +23,17 @@ class ThemeColors:
 
 def find_theme_dir() -> Path | None:
     """Find the Ghostty themes directory."""
-    candidates = [
+    candidates = []
+    if sys.platform == "darwin":
+        # macOS: themes bundled inside the app
+        candidates.append(
+            Path("/Applications/Ghostty.app/Contents/Resources/ghostty/themes")
+        )
+        # Homebrew cask may also symlink into Cellar; check via the app bundle
+        # User custom themes
+        candidates.append(Path.home() / ".config" / "ghostty" / "themes")
+    # Linux / cross-platform paths
+    candidates += [
         Path("/usr/share/ghostty/themes"),
         Path("/usr/local/share/ghostty/themes"),
         Path("/opt/ghostty/share/ghostty/themes"),
