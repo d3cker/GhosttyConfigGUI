@@ -1,8 +1,8 @@
 # Ghostty Config GUI
 
-A Python/PyQt6 graphical configuration editor for [Ghostty](https://ghostty.org/) — a fast, feature-rich, cross-platform terminal emulator.
+A Python/PyQt6 graphical configuration editor for [Ghostty](https://ghostty.org/) - a fast, feature-rich, cross-platform terminal emulator.
 
-Ghostty uses a plain text config file (`~/.config/ghostty/config`). This app gives it a GUI with live previews.
+Ghostty uses a plain text config file (`~/.config/ghostty/config.ghostty`). This app gives it a GUI with live previews.
 
 > **Disclaimer:** This project was fully vibecoded with Claude Code and barely tested. Use at your own risk. It may eat your config, misrepresent options, or spontaneously combust. PRs welcome. Tested on Ubuntu 25.10. 
 
@@ -34,7 +34,7 @@ python run_gui.py
 
 ## Config File Location
 
-By default reads/writes `$XDG_CONFIG_HOME/ghostty/config` (usually `~/.config/ghostty/config`). Use File > Open to load a different file.
+By default reads/writes `$XDG_CONFIG_HOME/ghostty/config.ghostty` (usually `~/.config/ghostty/config.ghostty`). Use File > Open to load a different file.
 
 ## License
 
