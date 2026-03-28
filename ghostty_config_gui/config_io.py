@@ -4,10 +4,21 @@ Format: key = value (one per line), # comments, blank lines preserved.
 """
 
 import os
+import sys
 from pathlib import Path
 
 
 def default_config_path() -> Path:
+    if sys.platform == "darwin":
+        # macOS: ~/Library/Application Support/com.mitchellh.ghostty/
+        base = Path.home() / "Library" / "Application Support" / "com.mitchellh.ghostty"
+        new_path = base / "config.ghostty"
+        legacy_path = base / "config"
+        if legacy_path.exists() and not new_path.exists():
+            return legacy_path
+        if new_path.exists() or not (Path.home() / ".config" / "ghostty").exists():
+            return new_path
+        # Fall through to XDG if macOS-specific dir doesn't exist but XDG does
     xdg = os.environ.get("XDG_CONFIG_HOME", "")
     base = Path(xdg) / "ghostty" if xdg else Path.home() / ".config" / "ghostty"
     # Prefer config.ghostty, fall back to legacy config if it exists

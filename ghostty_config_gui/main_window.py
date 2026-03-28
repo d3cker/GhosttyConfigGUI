@@ -705,12 +705,12 @@ class GhosttyConfigWindow(QMainWindow):
         self._cat_list.currentRowChanged.connect(self._on_category_changed)
         left_layout.addWidget(self._cat_list)
 
-        # Status label
-        self._status = QLabel("")
-        self._status.setStyleSheet("color: #888; font-size: 11px; padding: 4px;")
-        left_layout.addWidget(self._status)
-
         splitter.addWidget(left)
+
+        # Status label in the window status bar (full width, never truncated)
+        self._status = QLabel("")
+        self._status.setStyleSheet("color: #888; font-size: 11px;")
+        self.statusBar().addWidget(self._status, 1)
 
         # Middle: stacked pages
         self._pages = QStackedWidget()
