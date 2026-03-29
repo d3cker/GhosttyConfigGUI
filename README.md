@@ -10,8 +10,9 @@ Ghostty uses a plain text config file (`~/.config/ghostty/config.ghostty`). This
 
 | Font options & preview | Colors & theme preview |
 |---|---|
-| ![Font config](img/screenshot.png) | ![Theme preview](img/screenshot_theme.png) |
-
+| ![Font config](img/fonts.png) | ![Theme preview](img/theme.png) |
+| ![Color](img/colors.png) | ![Custom Color](img/custom_color.png) |
+| ![macOS settings](img/macos.png) | ![Linux and GTK](img/linux_and_gtk.png) |
 ## Features
 
 - **200+ config options** organized into 15 categories (Font, Colors, Cursor, Window, Keyboard, Shell, Quick Terminal, macOS, Linux & GTK, etc.)
