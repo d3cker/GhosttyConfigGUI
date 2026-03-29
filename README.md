@@ -14,7 +14,7 @@ Ghostty uses a plain text config file (`~/.config/ghostty/config.ghostty`). This
 
 ## Features
 
-- **100+ config options** organized into 13 categories (Font, Colors, Cursor, Window, Keyboard, Shell, etc.)
+- **200+ config options** organized into 15 categories (Font, Colors, Cursor, Window, Keyboard, Shell, Quick Terminal, macOS, Linux & GTK, etc.)
 - **Theme browser** — dropdown with all installed Ghostty themes, live preview with syntax-highlighted code, palette, selection colors, and cursor
 - **Font preview** — live sample text rendered with your selected font family and size
 - **Color palette editor** — visual ANSI 16-color palette with clickable swatches and color pickers
