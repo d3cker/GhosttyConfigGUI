@@ -1,0 +1,810 @@
+{
+  "language": {
+    "description": "Set Ghostty's graphical user interface language to a language other than the system default language. For example: will force the strings in Ghostty's graphical user interface to be in German rather than the system default. This will not affect the language used by programs run within Ghostty. Those will continue to use the default system language. There are also many non-GUI elements in Ghostty that are not translated - this setting will have no effect on those.",
+    "url": "https://ghostty.org/docs/config/reference#language"
+  },
+  "font-family": {
+    "description": "The font families to use. You can generate the list of valid values using the CLI: This configuration can be repeated multiple times to specify preferred fallback fonts when the requested codepoint is not available in the primary font. This is particularly useful for multiple languages, symbolic fonts, etc.",
+    "url": "https://ghostty.org/docs/config/reference#font-family"
+  },
+  "font-family-bold": {
+    "description": "The font families to use. You can generate the list of valid values using the CLI: This configuration can be repeated multiple times to specify preferred fallback fonts when the requested codepoint is not available in the primary font. This is particularly useful for multiple languages, symbolic fonts, etc.",
+    "url": "https://ghostty.org/docs/config/reference#font-family-bold"
+  },
+  "font-family-italic": {
+    "description": "The font families to use. You can generate the list of valid values using the CLI: This configuration can be repeated multiple times to specify preferred fallback fonts when the requested codepoint is not available in the primary font. This is particularly useful for multiple languages, symbolic fonts, etc.",
+    "url": "https://ghostty.org/docs/config/reference#font-family-italic"
+  },
+  "font-family-bold-italic": {
+    "description": "The font families to use. You can generate the list of valid values using the CLI: This configuration can be repeated multiple times to specify preferred fallback fonts when the requested codepoint is not available in the primary font. This is particularly useful for multiple languages, symbolic fonts, etc.",
+    "url": "https://ghostty.org/docs/config/reference#font-family-bold-italic"
+  },
+  "font-style": {
+    "description": "The named font style to use for each of the requested terminal font styles. This looks up the style based on the font style string advertised by the font itself. For example, \"Iosevka Heavy\" has a style of \"Heavy\". You can also use these fields to completely disable a font style. If you set the value of the configuration below to literal false then that font style will be disabled. If the running program in the terminal requests a disabled font style, the regular font style will be used instead.",
+    "url": "https://ghostty.org/docs/config/reference#font-style"
+  },
+  "font-style-bold": {
+    "description": "The named font style to use for each of the requested terminal font styles. This looks up the style based on the font style string advertised by the font itself. For example, \"Iosevka Heavy\" has a style of \"Heavy\". You can also use these fields to completely disable a font style. If you set the value of the configuration below to literal false then that font style will be disabled. If the running program in the terminal requests a disabled font style, the regular font style will be used instead.",
+    "url": "https://ghostty.org/docs/config/reference#font-style-bold"
+  },
+  "font-style-italic": {
+    "description": "The named font style to use for each of the requested terminal font styles. This looks up the style based on the font style string advertised by the font itself. For example, \"Iosevka Heavy\" has a style of \"Heavy\". You can also use these fields to completely disable a font style. If you set the value of the configuration below to literal false then that font style will be disabled. If the running program in the terminal requests a disabled font style, the regular font style will be used instead.",
+    "url": "https://ghostty.org/docs/config/reference#font-style-italic"
+  },
+  "font-style-bold-italic": {
+    "description": "The named font style to use for each of the requested terminal font styles. This looks up the style based on the font style string advertised by the font itself. For example, \"Iosevka Heavy\" has a style of \"Heavy\". You can also use these fields to completely disable a font style. If you set the value of the configuration below to literal false then that font style will be disabled. If the running program in the terminal requests a disabled font style, the regular font style will be used instead.",
+    "url": "https://ghostty.org/docs/config/reference#font-style-bold-italic"
+  },
+  "font-synthetic-style": {
+    "description": "Control whether Ghostty should synthesize a style if the requested style is not available in the specified font-family. Ghostty can synthesize bold, italic, and bold italic styles if the font does not have a specific style. For bold, this is done by drawing an outline around the glyph of varying thickness. For italic, this is done by applying a slant to the glyph. For bold italic, both of these are applied.",
+    "url": "https://ghostty.org/docs/config/reference#font-synthetic-style"
+  },
+  "font-feature": {
+    "description": "Apply a font feature. To enable multiple font features you can repeat this multiple times or use a comma-separated list of feature settings. The syntax for feature settings is as follows, where feat is a feature: The syntax is fairly loose, but invalid settings will be silently ignored.",
+    "url": "https://ghostty.org/docs/config/reference#font-feature"
+  },
+  "font-size": {
+    "description": "Font size in points. This value can be a non-integer and the nearest integer pixel size will be selected. If you have a high dpi display where 1pt = 2px then you can get an odd numbered pixel size by specifying a half point. For example, 13.5pt @ 2px/pt = 27px Changing this configuration at runtime will only affect existing terminals that have NOT manually adjusted their font size in some way (e.g. increased or decreased the font size).",
+    "url": "https://ghostty.org/docs/config/reference#font-size"
+  },
+  "font-variation": {
+    "description": "A repeatable configuration to set one or more font variations values for a variable font. A variable font is a single font, usually with a filename ending in -VF.ttf or -VF.otf that contains one or more configurable axes for things such as weight, slant, etc. Not all fonts support variations; only fonts that explicitly state they are variable fonts will work. The format of this is id=value where id is the axis identifier. An axis identifier is always a 4 character string, such as wght.",
+    "url": "https://ghostty.org/docs/config/reference#font-variation"
+  },
+  "font-variation-bold": {
+    "description": "A repeatable configuration to set one or more font variations values for a variable font. A variable font is a single font, usually with a filename ending in -VF.ttf or -VF.otf that contains one or more configurable axes for things such as weight, slant, etc. Not all fonts support variations; only fonts that explicitly state they are variable fonts will work. The format of this is id=value where id is the axis identifier. An axis identifier is always a 4 character string, such as wght.",
+    "url": "https://ghostty.org/docs/config/reference#font-variation-bold"
+  },
+  "font-variation-italic": {
+    "description": "A repeatable configuration to set one or more font variations values for a variable font. A variable font is a single font, usually with a filename ending in -VF.ttf or -VF.otf that contains one or more configurable axes for things such as weight, slant, etc. Not all fonts support variations; only fonts that explicitly state they are variable fonts will work. The format of this is id=value where id is the axis identifier. An axis identifier is always a 4 character string, such as wght.",
+    "url": "https://ghostty.org/docs/config/reference#font-variation-italic"
+  },
+  "font-variation-bold-italic": {
+    "description": "A repeatable configuration to set one or more font variations values for a variable font. A variable font is a single font, usually with a filename ending in -VF.ttf or -VF.otf that contains one or more configurable axes for things such as weight, slant, etc. Not all fonts support variations; only fonts that explicitly state they are variable fonts will work. The format of this is id=value where id is the axis identifier. An axis identifier is always a 4 character string, such as wght.",
+    "url": "https://ghostty.org/docs/config/reference#font-variation-bold-italic"
+  },
+  "font-codepoint-map": {
+    "description": "Force one or a range of Unicode codepoints to map to a specific named font. This is useful if you want to support special symbols or if you want to use specific glyphs that render better for your specific font. The syntax is codepoint=fontname where codepoint is either a single codepoint or a range. Codepoints must be specified as full Unicode hex values, such as U+ABCD. Codepoints ranges are specified as U+ABCD-U+DEFG.",
+    "url": "https://ghostty.org/docs/config/reference#font-codepoint-map"
+  },
+  "clipboard-codepoint-map": {
+    "description": "Map specific Unicode codepoints to replacement values when copying text to clipboard. This configuration allows you to replace specific Unicode characters with other characters or strings when copying terminal content to the clipboard. This is useful for converting special terminal symbols to more compatible characters for pasting into other applications. The syntax is similar to font-codepoint-map:",
+    "url": "https://ghostty.org/docs/config/reference#clipboard-codepoint-map"
+  },
+  "font-thicken": {
+    "description": "Draw fonts with a thicker stroke, if supported. This is currently only supported on macOS.",
+    "url": "https://ghostty.org/docs/config/reference#font-thicken"
+  },
+  "font-thicken-strength": {
+    "description": "Strength of thickening when font-thicken is enabled. Valid values are integers between 0 and 255. 0 does not correspond to no thickening, rather it corresponds to the lightest available thickening. Has no effect when font-thicken is set to false.",
+    "url": "https://ghostty.org/docs/config/reference#font-thicken-strength"
+  },
+  "font-shaping-break": {
+    "description": "Locations to break font shaping into multiple runs. A \"run\" is a contiguous segment of text that is shaped together. \"Shaping\" is the process of converting text (codepoints) into glyphs (renderable characters). This is how ligatures are formed, among other things. For example, if a coding font turns \"!=\" into a single glyph, then it must see \"!\" and \"=\" next to each other in a single run. When a run is broken, the text is shaped separately.",
+    "url": "https://ghostty.org/docs/config/reference#font-shaping-break"
+  },
+  "alpha-blending": {
+    "description": "What color space to use when performing alpha blending. This affects the appearance of text and of any images with transparency. Additionally, custom shaders will receive colors in the configured space. On macOS the default is native, on all other platforms the default is linear-corrected.",
+    "url": "https://ghostty.org/docs/config/reference#alpha-blending"
+  },
+  "adjust-cell-width": {
+    "description": "All of the configurations behavior adjust various metrics determined by the font. The values can be integers (1, -1, etc.) or a percentage (20%, -15%, etc.). In each case, the values represent the amount to change the original value. For example, a value of 1 increases the value by 1; it does not set it to literally 1. A value of 20% increases the value by 20%. And so on. There is little to no validation on these values so the wrong values (e.g. -100%) can cause the terminal to be unusable.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-cell-width"
+  },
+  "adjust-cell-height": {
+    "description": "All of the configurations behavior adjust various metrics determined by the font. The values can be integers (1, -1, etc.) or a percentage (20%, -15%, etc.). In each case, the values represent the amount to change the original value. For example, a value of 1 increases the value by 1; it does not set it to literally 1. A value of 20% increases the value by 20%. And so on. There is little to no validation on these values so the wrong values (e.g. -100%) can cause the terminal to be unusable.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-cell-height"
+  },
+  "adjust-font-baseline": {
+    "description": "Distance in pixels or percentage adjustment from the bottom of the cell to the text baseline. Increase to move baseline UP, decrease to move baseline DOWN. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-font-baseline"
+  },
+  "adjust-underline-position": {
+    "description": "Distance in pixels or percentage adjustment from the top of the cell to the top of the underline. Increase to move underline DOWN, decrease to move underline UP. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-underline-position"
+  },
+  "adjust-underline-thickness": {
+    "description": "Thickness in pixels of the underline. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-underline-thickness"
+  },
+  "adjust-strikethrough-position": {
+    "description": "Distance in pixels or percentage adjustment from the top of the cell to the top of the strikethrough. Increase to move strikethrough DOWN, decrease to move strikethrough UP. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-strikethrough-position"
+  },
+  "adjust-strikethrough-thickness": {
+    "description": "Thickness in pixels or percentage adjustment of the strikethrough. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-strikethrough-thickness"
+  },
+  "adjust-overline-position": {
+    "description": "Distance in pixels or percentage adjustment from the top of the cell to the top of the overline. Increase to move overline DOWN, decrease to move overline UP. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-overline-position"
+  },
+  "adjust-overline-thickness": {
+    "description": "Thickness in pixels or percentage adjustment of the overline. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-overline-thickness"
+  },
+  "adjust-cursor-thickness": {
+    "description": "Thickness in pixels or percentage adjustment of the bar cursor and outlined rect cursor. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-cursor-thickness"
+  },
+  "adjust-cursor-height": {
+    "description": "Height in pixels or percentage adjustment of the cursor. Currently applies to all cursor types: bar, rect, and outlined rect. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-cursor-height"
+  },
+  "adjust-box-thickness": {
+    "description": "Thickness in pixels or percentage adjustment of box drawing characters. See the notes about adjustments in adjust-cell-width.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-box-thickness"
+  },
+  "adjust-icon-height": {
+    "description": "Height in pixels or percentage adjustment of maximum height for nerd font icons. A positive (negative) value will increase (decrease) the maximum icon height. This may not affect all icons equally: the effect depends on whether the default size of the icon is height-constrained, which in turn depends on the aspect ratio of both the icon and your primary font. Certain icons designed for box drawing and terminal graphics, such as Powerline symbols, are not affected by this option.",
+    "url": "https://ghostty.org/docs/config/reference#adjust-icon-height"
+  },
+  "grapheme-width-method": {
+    "description": "The method to use for calculating the cell width of a grapheme cluster. The default value is unicode which uses the Unicode standard to determine grapheme width. This results in correct grapheme width but may result in cursor-desync issues with some programs (such as shells) that may use a legacy method such as wcswidth.",
+    "url": "https://ghostty.org/docs/config/reference#grapheme-width-method"
+  },
+  "freetype-load-flags": {
+    "description": "FreeType load flags to enable. The format of this is a list of flags to enable separated by commas. If you prefix a flag with no- then it is disabled. If you omit a flag, its default value is used, so you must explicitly disable flags you don't want. You can also use true or false to turn all flags on or off. This configuration only applies to Ghostty builds that use FreeType. This is usually the case only for Linux builds. macOS uses CoreText and does not have an equivalent configuration.",
+    "url": "https://ghostty.org/docs/config/reference#freetype-load-flags"
+  },
+  "theme": {
+    "description": "A theme to use. This can be a built-in theme name, a custom theme name, or an absolute path to a custom theme file. Ghostty also supports specifying a different theme to use for light and dark mode. Each option is documented below. If the theme is an absolute pathname, Ghostty will attempt to load that file as a theme. If that file does not exist or is inaccessible, an error will be logged and no other directories will be searched.",
+    "url": "https://ghostty.org/docs/config/reference#theme"
+  },
+  "background": {
+    "description": "Background color for the window. Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color.",
+    "url": "https://ghostty.org/docs/config/reference#background"
+  },
+  "foreground": {
+    "description": "Foreground color for the window. Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color.",
+    "url": "https://ghostty.org/docs/config/reference#foreground"
+  },
+  "background-image": {
+    "description": "Background image for the terminal. This should be a path to a PNG or JPEG file, other image formats are not yet supported. The background image is currently per-terminal, not per-window. If you are a heavy split user, the background image will be repeated across splits. A future improvement to Ghostty will address this.",
+    "url": "https://ghostty.org/docs/config/reference#background-image"
+  },
+  "background-image-opacity": {
+    "description": "Background image opacity. This is relative to the value of background-opacity. A value of 1.0 (the default) will result in the background image being placed on top of the general background color, and then the combined result will be adjusted to the opacity specified by background-opacity.",
+    "url": "https://ghostty.org/docs/config/reference#background-image-opacity"
+  },
+  "background-image-position": {
+    "description": "Background image position. Valid values are: The default value is center.",
+    "url": "https://ghostty.org/docs/config/reference#background-image-position"
+  },
+  "background-image-fit": {
+    "description": "Background image fit. Valid values are: contain",
+    "url": "https://ghostty.org/docs/config/reference#background-image-fit"
+  },
+  "background-image-repeat": {
+    "description": "Whether to repeat the background image or not. If this is set to true, the background image will be repeated if there would otherwise be blank space around it because it doesn't completely fill the terminal area. The default value is false.",
+    "url": "https://ghostty.org/docs/config/reference#background-image-repeat"
+  },
+  "selection-foreground": {
+    "description": "The foreground and background color for selection. If this is not set, then the selection color is just the inverted window background and foreground (note: not to be confused with the cell bg/fg). Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color. Since version 1.2.0, this can also be set to cell-foreground to match the cell foreground color, or cell-background to match the cell background color.",
+    "url": "https://ghostty.org/docs/config/reference#selection-foreground"
+  },
+  "selection-background": {
+    "description": "The foreground and background color for selection. If this is not set, then the selection color is just the inverted window background and foreground (note: not to be confused with the cell bg/fg). Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color. Since version 1.2.0, this can also be set to cell-foreground to match the cell foreground color, or cell-background to match the cell background color.",
+    "url": "https://ghostty.org/docs/config/reference#selection-background"
+  },
+  "selection-clear-on-typing": {
+    "description": "Whether to clear selected text when typing. This defaults to true. This is typical behavior for most terminal emulators as well as text input fields. If you set this to false, then the selected text will not be cleared when typing. \"Typing\" is specifically defined as any non-modifier (shift, control, alt, etc.) keypress that produces data to be sent to the application running within the terminal (e.g. the shell).",
+    "url": "https://ghostty.org/docs/config/reference#selection-clear-on-typing"
+  },
+  "selection-clear-on-copy": {
+    "description": "Whether to clear selected text after copying. This defaults to false. When set to true, the selection will be automatically cleared after any copy operation that invokes the copy_to_clipboard keyboard binding. Importantly, this will not clear the selection if the copy operation was invoked via copy-on-select. When set to false, the selection remains visible after copying, allowing to see what was copied and potentially perform additional operations on the same selection.",
+    "url": "https://ghostty.org/docs/config/reference#selection-clear-on-copy"
+  },
+  "selection-word-chars": {
+    "description": "Characters that mark word boundaries during text selection operations such as double-clicking. When selecting a word, the selection will stop at any of these characters. This is similar to the WORDCHARS environment variable in zsh, except this specifies the boundary characters rather than the word characters. The default includes common delimiters and punctuation that typically separate words in code and prose. Each character in this string becomes a word boundary.",
+    "url": "https://ghostty.org/docs/config/reference#selection-word-chars"
+  },
+  "minimum-contrast": {
+    "description": "The minimum contrast ratio between the foreground and background colors. The contrast ratio is a value between 1 and 21. A value of 1 allows for no contrast (e.g. black on black). This value is the contrast ratio as defined by the WCAG 2.0 specification. If you want to avoid invisible text (same color as background), a value of 1.1 is a good value. If you want to avoid text that is difficult to read, a value of 3 or higher is a good value.",
+    "url": "https://ghostty.org/docs/config/reference#minimum-contrast"
+  },
+  "palette": {
+    "description": "Color palette for the 256 color form that many terminal applications use. The syntax of this configuration is N=COLOR where N is 0 to 255 (for the 256 colors in the terminal color table) and COLOR is a typical RGB color code such as #AABBCC or AABBCC, or a named X11 color. For example, palette = 5=#BB78D9 will set the 'purple' color. The palette index can be in decimal, binary, octal, or hexadecimal. Decimal is assumed unless a prefix is used: 0b for binary, 0o for octal, and 0x for hexadecimal.",
+    "url": "https://ghostty.org/docs/config/reference#palette"
+  },
+  "palette-generate": {
+    "description": "Whether to automatically generate the extended 256 color palette (indices 16–255) from the base 16 ANSI colors. This lets theme authors specify only the base 16 colors and have the rest of the palette be automatically generated in a consistent and aesthetic way. When enabled, the 6×6×6 color cube and 24-step grayscale ramp are derived from interpolations of the base palette, giving a more cohesive look. Colors that have been explicitly set via palette are never overwritten.",
+    "url": "https://ghostty.org/docs/config/reference#palette-generate"
+  },
+  "palette-harmonious": {
+    "description": "Invert the palette colors generated when palette-generate is enabled, so that the colors go in reverse order. This allows palette-based applications to work well in both light and dark mode since the palettes are always relatively good colors. This defaults to off because some legacy terminal applications hardcode the assumption that palette indices 16–231 are ordered from darkest to lightest, so enabling this would make them unreadable.",
+    "url": "https://ghostty.org/docs/config/reference#palette-harmonious"
+  },
+  "cursor-color": {
+    "description": "The color of the cursor. If this is not set, a default will be chosen. Direct colors can be specified as either hex (#RRGGBB or RRGGBB) or a named X11 color. Additionally, special values can be used to set the color to match other colors at runtime:",
+    "url": "https://ghostty.org/docs/config/reference#cursor-color"
+  },
+  "cursor-opacity": {
+    "description": "The opacity level (opposite of transparency) of the cursor. A value of 1 is fully opaque and a value of 0 is fully transparent. A value less than 0 or greater than 1 will be clamped to the nearest valid value. Note that a sufficiently small value such as 0.3 may be effectively invisible and may make it difficult to find the cursor.",
+    "url": "https://ghostty.org/docs/config/reference#cursor-opacity"
+  },
+  "cursor-style": {
+    "description": "The style of the cursor. This sets the default style. A running program can still request an explicit cursor style using escape sequences (such as CSI q). Shell configurations will often request specific cursor styles. Note that shell integration will automatically set the cursor to a bar at a prompt, regardless of this configuration. You can disable that behavior by specifying shell-integration-features = no-cursor or disabling shell integration entirely. Valid values are:",
+    "url": "https://ghostty.org/docs/config/reference#cursor-style"
+  },
+  "cursor-style-blink": {
+    "description": "Sets the default blinking state of the cursor. This is just the default state; running programs may override the cursor style using DECSCUSR (CSI q). If this is not set, the cursor blinks by default. Note that this is not the same as a \"true\" value, as noted below. If this is not set at all (null), then Ghostty will respect DEC Mode 12 (AT&T cursor blink) as an alternate approach to turning blinking on/off.",
+    "url": "https://ghostty.org/docs/config/reference#cursor-style-blink"
+  },
+  "cursor-text": {
+    "description": "The color of the text under the cursor. If this is not set, a default will be chosen. Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color. Since version 1.2.0, this can also be set to cell-foreground to match the cell foreground color, or cell-background to match the cell background color.",
+    "url": "https://ghostty.org/docs/config/reference#cursor-text"
+  },
+  "cursor-click-to-move": {
+    "description": "Enables the ability to move the cursor at prompts by clicking on a location in the prompt text. This feature requires shell integration, specifically prompt marking via OSC 133. Some shells like Fish (v4) and Nu (0.111+) natively support this while others may require additional configuration or Ghostty's shell integration features to be enabled.",
+    "url": "https://ghostty.org/docs/config/reference#cursor-click-to-move"
+  },
+  "mouse-hide-while-typing": {
+    "description": "Hide the mouse immediately when typing. The mouse becomes visible again when the mouse is used (button, movement, etc.). Platform-specific behavior may dictate other scenarios where the mouse is shown. For example on macOS, the mouse is shown again when a new window, tab, or split is created.",
+    "url": "https://ghostty.org/docs/config/reference#mouse-hide-while-typing"
+  },
+  "scroll-to-bottom": {
+    "description": "When to scroll the surface to the bottom. The format of this is a list of options to enable separated by commas. If you prefix an option with no- then it is disabled. If you omit an option, its default value is used. Available options: keystroke If set, scroll the surface to the bottom when the user presses a key that results in data being sent to the PTY (basically anything but modifiers or keybinds that are processed by Ghostty).",
+    "url": "https://ghostty.org/docs/config/reference#scroll-to-bottom"
+  },
+  "mouse-shift-capture": {
+    "description": "Determines whether running programs can detect the shift key pressed with a mouse click. Typically, the shift key is used to extend mouse selection. The default value of false means that the shift key is not sent with the mouse protocol and will extend the selection. This value can be conditionally overridden by the running program with the XTSHIFTESCAPE sequence.",
+    "url": "https://ghostty.org/docs/config/reference#mouse-shift-capture"
+  },
+  "mouse-reporting": {
+    "description": "Enable or disable mouse reporting. When set to false, mouse events will not be reported to terminal applications even if they request it. This allows you to always use the mouse for selection and other terminal UI interactions without applications capturing mouse input. When set to true (the default), terminal applications can request mouse reporting and will receive mouse events according to their requested mode. This can be toggled at runtime using the toggle_mouse_reporting keybind action.",
+    "url": "https://ghostty.org/docs/config/reference#mouse-reporting"
+  },
+  "mouse-scroll-multiplier": {
+    "description": "Multiplier for scrolling distance with the mouse wheel. A prefix of precision: or discrete: can be used to set the multiplier only for scrolling with the specific type of devices. These can be comma-separated to set both types of multipliers at the same time, e.g. precision:0.1,discrete:3. If no prefix is used, the multiplier applies to all scrolling devices. Specifying a prefix was introduced in Ghostty 1.2.1. The value will be clamped to [0.01, 10,000].",
+    "url": "https://ghostty.org/docs/config/reference#mouse-scroll-multiplier"
+  },
+  "background-opacity": {
+    "description": "The opacity level (opposite of transparency) of the background. A value of 1 is fully opaque and a value of 0 is fully transparent. A value less than 0 or greater than 1 will be clamped to the nearest valid value. On macOS, background opacity is disabled when the terminal enters native fullscreen. This is because the background becomes gray and it can cause widgets to show through which isn't generally desirable. On macOS, changing this configuration requires restarting Ghostty completely.",
+    "url": "https://ghostty.org/docs/config/reference#background-opacity"
+  },
+  "background-opacity-cells": {
+    "description": "Applies background opacity to cells with an explicit background color set. Normally, background-opacity is only applied to the window background. If a cell has an explicit background color set, such as red, then that background color will be fully opaque. An effect of this is that some terminal applications that repaint the background color of the terminal such as a Neovim and Tmux may not respect the background-opacity (by design).",
+    "url": "https://ghostty.org/docs/config/reference#background-opacity-cells"
+  },
+  "background-blur": {
+    "description": "Whether to blur the background when background-opacity is less than 1. Valid values are: On macOS 26.0 and later, there are additional special values that can be set to use the native macOS glass effects:",
+    "url": "https://ghostty.org/docs/config/reference#background-blur"
+  },
+  "unfocused-split-opacity": {
+    "description": "The opacity level (opposite of transparency) of an unfocused split. Unfocused splits by default are slightly faded out to make it easier to see which split is focused. To disable this feature, set this value to 1. A value of 1 is fully opaque and a value of 0 is fully transparent. Because \"0\" is not useful (it makes the window look very weird), the minimum value is 0.15. This value still looks weird but you can at least see what's going on. A value outside of the range 0.",
+    "url": "https://ghostty.org/docs/config/reference#unfocused-split-opacity"
+  },
+  "unfocused-split-fill": {
+    "description": "The color to dim the unfocused split. Unfocused splits are dimmed by rendering a semi-transparent rectangle over the split. This sets the color of that rectangle and can be used to carefully control the dimming effect. This will default to the background color. Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color.",
+    "url": "https://ghostty.org/docs/config/reference#unfocused-split-fill"
+  },
+  "split-divider-color": {
+    "description": "The color of the split divider. If this is not set, a default will be chosen. Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color.",
+    "url": "https://ghostty.org/docs/config/reference#split-divider-color"
+  },
+  "split-preserve-zoom": {
+    "description": "Control when Ghostty preserves a zoomed split. Under normal circumstances, any operation that changes focus or layout of the split tree in a window will unzoom any zoomed split. This configuration allows you to control this behavior. This can be set to navigation to preserve the zoomed split state when navigating to another split (e.g. via goto_split). This will change the zoomed split to the newly focused split instead of unzooming.",
+    "url": "https://ghostty.org/docs/config/reference#split-preserve-zoom"
+  },
+  "search-foreground": {
+    "description": "The foreground and background color for search matches. This only applies to non-focused search matches, also known as candidate matches. Valid values: The default value is black text on a golden yellow background.",
+    "url": "https://ghostty.org/docs/config/reference#search-foreground"
+  },
+  "search-background": {
+    "description": "The foreground and background color for search matches. This only applies to non-focused search matches, also known as candidate matches. Valid values: The default value is black text on a golden yellow background.",
+    "url": "https://ghostty.org/docs/config/reference#search-background"
+  },
+  "search-selected-foreground": {
+    "description": "The foreground and background color for the currently selected search match. This is the focused match that will be jumped to when using next/previous search navigation. Valid values: The default value is black text on a soft peach background.",
+    "url": "https://ghostty.org/docs/config/reference#search-selected-foreground"
+  },
+  "search-selected-background": {
+    "description": "The foreground and background color for the currently selected search match. This is the focused match that will be jumped to when using next/previous search navigation. Valid values: The default value is black text on a soft peach background.",
+    "url": "https://ghostty.org/docs/config/reference#search-selected-background"
+  },
+  "command": {
+    "description": "The command to run, usually a shell. If this is not an absolute path, it'll be looked up in the PATH. If this is not set, a default will be looked up from your system. The rules for the default lookup are: SHELL environment variable passwd entry (user information)",
+    "url": "https://ghostty.org/docs/config/reference#command"
+  },
+  "initial-command": {
+    "description": "This is the same as \"command\", but only applies to the first terminal surface created when Ghostty starts. Subsequent terminal surfaces will use the command configuration. After the first terminal surface is created (or closed), there is no way to run this initial command again automatically. As such, setting this at runtime works but will only affect the next terminal surface if it is the first one ever created.",
+    "url": "https://ghostty.org/docs/config/reference#initial-command"
+  },
+  "notify-on-command-finish": {
+    "description": "Controls when command finished notifications are sent. There are three options: Command finished notifications requires that either shell integration is enabled, or that your shell sends OSC 133 escape sequences to mark the start and end of commands. On GTK, there is a context menu item that will enable command finished notifications for a single command, overriding the never and unfocused options.",
+    "url": "https://ghostty.org/docs/config/reference#notify-on-command-finish"
+  },
+  "notify-on-command-finish-action": {
+    "description": "If command finished notifications are enabled, this controls how the user is notified. Available options: Options can be combined by listing them as a comma separated list. Options can be negated by prefixing them with no-. For example no-bell,notify.",
+    "url": "https://ghostty.org/docs/config/reference#notify-on-command-finish-action"
+  },
+  "notify-on-command-finish-after": {
+    "description": "If command finished notifications are enabled, this controls how long a command must have been running before a notification will be sent. The default is five seconds. The duration is specified as a series of numbers followed by time units. Whitespace is allowed between numbers and units. Each number and unit will be added together to form the total duration. The allowed time units are as follows:",
+    "url": "https://ghostty.org/docs/config/reference#notify-on-command-finish-after"
+  },
+  "env": {
+    "description": "Extra environment variables to pass to commands launched in a terminal surface. The format is env=KEY=VALUE. env = foo=bar env = bar=baz Setting env to an empty string will reset the entire map to default (empty).",
+    "url": "https://ghostty.org/docs/config/reference#env"
+  },
+  "input": {
+    "description": "Data to send as input to the command on startup. The configured command will be launched using the typical rules, then the data specified as this input will be written to the pty before any other input can be provided. The bytes are sent as-is with no additional encoding. Therefore, be cautious about input that can contain control characters, because this can be used to execute programs in a shell.",
+    "url": "https://ghostty.org/docs/config/reference#input"
+  },
+  "wait-after-command": {
+    "description": "If true, keep the terminal open after the command exits. Normally, the terminal window closes when the running command (such as a shell) exits. With this true, the terminal window will stay open until any keypress is received. This is primarily useful for scripts or debugging.",
+    "url": "https://ghostty.org/docs/config/reference#wait-after-command"
+  },
+  "abnormal-command-exit-runtime": {
+    "description": "The number of milliseconds of runtime below which we consider a process exit to be abnormal. This is used to show an error message when the process exits too quickly. On Linux, this must be paired with a non-zero exit code. On macOS, we allow any exit code because of the way shell processes are launched via the login command.",
+    "url": "https://ghostty.org/docs/config/reference#abnormal-command-exit-runtime"
+  },
+  "scrollback-limit": {
+    "description": "The size of the scrollback buffer in bytes. This also includes the active screen. No matter what this is set to, enough memory will always be allocated for the visible screen and anything leftover is the limit for the scrollback. When this limit is reached, the oldest lines are removed from the scrollback. Scrollback currently exists completely in memory. This means that the larger this value, the larger potential memory usage.",
+    "url": "https://ghostty.org/docs/config/reference#scrollback-limit"
+  },
+  "scrollbar": {
+    "description": "Control when the scrollbar is shown to scroll the scrollback buffer. The default value is system. Valid values:",
+    "url": "https://ghostty.org/docs/config/reference#scrollbar"
+  },
+  "link": {
+    "description": "Match a regular expression against the terminal text and associate clicking it with an action. This can be used to match URLs, file paths, etc. Actions can be opening using the system opener (e.g. open or xdg-open) or executing any arbitrary binding action. Links that are configured earlier take precedence over links that are configured later. A default link that matches a URL and opens it in the system opener always exists. This can be disabled using link-url.",
+    "url": "https://ghostty.org/docs/config/reference#link"
+  },
+  "link-url": {
+    "description": "Enable URL matching. URLs are matched on hover with control (Linux) or command (macOS) pressed and open using the default system application for the linked URL. The URL matcher is always lowest priority of any configured links (see link). If you want to customize URL matching, use link and disable this.",
+    "url": "https://ghostty.org/docs/config/reference#link-url"
+  },
+  "link-previews": {
+    "description": "Show link previews for a matched URL. When true, link previews are shown for all matched URLs. When false, link previews are never shown. When set to \"osc8\", link previews are only shown for hyperlinks created with the OSC 8 sequence (in this case, the link text can differ from the link destination).",
+    "url": "https://ghostty.org/docs/config/reference#link-previews"
+  },
+  "maximize": {
+    "description": "Whether to start the window in a maximized state. This setting applies to new windows and does not apply to tabs, splits, etc. However, this setting will apply to all new windows, not just the first one.",
+    "url": "https://ghostty.org/docs/config/reference#maximize"
+  },
+  "fullscreen": {
+    "description": "Start new windows in fullscreen. This setting applies to new windows and does not apply to tabs, splits, etc. However, this setting will apply to all new windows, not just the first one. Allowable values are: Important: tabs DO NOT WORK with non-native fullscreen modes. Non-native fullscreen removes the titlebar and macOS native tabs require the titlebar. If you use tabs, use true (native) instead.",
+    "url": "https://ghostty.org/docs/config/reference#fullscreen"
+  },
+  "title": {
+    "description": "The title Ghostty will use for the window. This will force the title of the window to be this title at all times and Ghostty will ignore any set title escape sequences programs (such as Neovim) may send. If you want a blank title, set this to one or more spaces by quoting the value. For example, title = \" \". This effectively hides the title. This is necessary because setting a blank value resets the title to the default value of the running program. This configuration can be reloaded at runtime.",
+    "url": "https://ghostty.org/docs/config/reference#title"
+  },
+  "class": {
+    "description": "The setting that will change the application class value. This controls the class field of the WM_CLASS X11 property (when running under X11), the Wayland application ID (when running under Wayland), and the bus name that Ghostty uses to connect to DBus. Note that changing this value between invocations will create new, separate instances, of Ghostty when running with gtk-single-instance=true. See that option for more details.",
+    "url": "https://ghostty.org/docs/config/reference#class"
+  },
+  "x11-instance-name": {
+    "description": "This controls the instance name field of the WM_CLASS X11 property when running under X11. It has no effect otherwise. The default is ghostty. This only affects GTK builds.",
+    "url": "https://ghostty.org/docs/config/reference#x11-instance-name"
+  },
+  "working-directory": {
+    "description": "The directory to change to after starting the command. This setting is secondary to the window-inherit-working-directory setting. If a previous Ghostty terminal exists in the same process, window-inherit-working-directory will take precedence. Otherwise, this setting will be used. Typically, this setting is used only for the first window. The default is inherit except in special scenarios listed next.",
+    "url": "https://ghostty.org/docs/config/reference#working-directory"
+  },
+  "keybind": {
+    "description": "Key bindings. The format is trigger=action. Duplicate triggers will overwrite previously set values. The list of actions is available in the documentation or using the ghostty +list-actions command. Trigger: +-separated list of keys and modifiers. Example: ctrl+a, ctrl+shift+b, up. If the key is a single Unicode codepoint, the trigger will match any presses that produce that codepoint. These are impacted by keyboard layouts.",
+    "url": "https://ghostty.org/docs/config/reference#keybind"
+  },
+  "key-remap": {
+    "description": "Remap modifier keys within Ghostty. This allows you to swap or reassign modifier keys at the application level without affecting system-wide settings. The format is from=to where both from and to are modifier key names. You can use generic names like ctrl, alt, shift, super (macOS: cmd/command) or sided names like left_ctrl, right_alt, etc. This will NOT change keyboard layout or key encodings outside of Ghostty.",
+    "url": "https://ghostty.org/docs/config/reference#key-remap"
+  },
+  "window-padding-x": {
+    "description": "Horizontal window padding. This applies padding between the terminal cells and the left and right window borders. The value is in points, meaning that it will be scaled appropriately for screen DPI. If this value is set too large, the screen will render nothing, because the grid will be completely squished by the padding. It is up to you as the user to pick a reasonable value. If you pick an unreasonable value, a warning will appear in the logs.",
+    "url": "https://ghostty.org/docs/config/reference#window-padding-x"
+  },
+  "window-padding-y": {
+    "description": "Vertical window padding. This applies padding between the terminal cells and the top and bottom window borders. The value is in points, meaning that it will be scaled appropriately for screen DPI. If this value is set too large, the screen will render nothing, because the grid will be completely squished by the padding. It is up to you as the user to pick a reasonable value. If you pick an unreasonable value, a warning will appear in the logs.",
+    "url": "https://ghostty.org/docs/config/reference#window-padding-y"
+  },
+  "window-padding-balance": {
+    "description": "The viewport dimensions are usually not perfectly divisible by the cell size. In this case, some extra padding on the end of a column and the bottom of the final row may exist. If this is true, then this extra padding is automatically balanced between all four edges to minimize imbalance on one side. If this is false, the top left grid cell will always hug the edge with zero padding other than what may be specified with the other window-padding options.",
+    "url": "https://ghostty.org/docs/config/reference#window-padding-balance"
+  },
+  "window-padding-color": {
+    "description": "The color of the padding area of the window. Valid values are: The \"extend\" value will be disabled in certain scenarios. On primary screen applications (e.g. not something like Neovim), the color will not be extended vertically if any of the following are true:",
+    "url": "https://ghostty.org/docs/config/reference#window-padding-color"
+  },
+  "window-vsync": {
+    "description": "Synchronize rendering with the screen refresh rate. If true, this will minimize tearing and align redraws with the screen but may cause input latency. If false, this will maximize redraw frequency but may cause tearing, and under heavy load may use more CPU and power. This defaults to true because out-of-sync rendering on macOS can cause kernel panics (macOS 14.4+) and performance issues for external displays over some hardware such as DisplayLink.",
+    "url": "https://ghostty.org/docs/config/reference#window-vsync"
+  },
+  "window-inherit-working-directory": {
+    "description": "If true, new windows will inherit the working directory of the previously focused window. If no window was previously focused, the default working directory will be used (the working-directory option).",
+    "url": "https://ghostty.org/docs/config/reference#window-inherit-working-directory"
+  },
+  "tab-inherit-working-directory": {
+    "description": "If true, new tabs will inherit the working directory of the previously focused tab. If no tab was previously focused, the default working directory will be used (the working-directory option).",
+    "url": "https://ghostty.org/docs/config/reference#tab-inherit-working-directory"
+  },
+  "split-inherit-working-directory": {
+    "description": "If true, new split panes will inherit the working directory of the previously focused split. If no split was previously focused, the default working directory will be used (the working-directory option).",
+    "url": "https://ghostty.org/docs/config/reference#split-inherit-working-directory"
+  },
+  "window-inherit-font-size": {
+    "description": "If true, new windows and tabs will inherit the font size of the previously focused window. If no window was previously focused, the default font size will be used. If this is false, the default font size specified in the configuration font-size will be used.",
+    "url": "https://ghostty.org/docs/config/reference#window-inherit-font-size"
+  },
+  "window-decoration": {
+    "description": "Configure a preference for window decorations. This setting specifies a preference; the actual OS, desktop environment, window manager, etc. may override this preference. Ghostty will do its best to respect this preference but it may not always be possible. Valid values: none",
+    "url": "https://ghostty.org/docs/config/reference#window-decoration"
+  },
+  "window-title-font-family": {
+    "description": "The font that will be used for the application's window and tab titles. If this setting is left unset, the system default font will be used. Note",
+    "url": "https://ghostty.org/docs/config/reference#window-title-font-family"
+  },
+  "window-subtitle": {
+    "description": "The text that will be displayed in the subtitle of the window. Valid values: This feature is only supported on GTK.",
+    "url": "https://ghostty.org/docs/config/reference#window-subtitle"
+  },
+  "window-theme": {
+    "description": "The theme to use for the windows. Valid values: On macOS, if macos-titlebar-style is tabs or transparent, the window theme will be automatically set based on the luminosity of the terminal background color. This only applies to terminal windows. This setting will still apply to non-terminal windows within Ghostty. This is currently only supported on macOS and Linux.",
+    "url": "https://ghostty.org/docs/config/reference#window-theme"
+  },
+  "window-colorspace": {
+    "description": "The color space to use when interpreting terminal colors. \"Terminal colors\" refers to colors specified in your configuration and colors produced by direct-color SGR sequences. Valid values: This setting is currently only supported on macOS.",
+    "url": "https://ghostty.org/docs/config/reference#window-colorspace"
+  },
+  "window-height": {
+    "description": "The initial window size. This size is in terminal grid cells by default. Both values must be set to take effect. If only one value is set, it is ignored. We don't currently support specifying a size in pixels but a future change can enable that. If this isn't specified, the app runtime will determine some default size. Note that the window manager may put limits on the size or override the size.",
+    "url": "https://ghostty.org/docs/config/reference#window-height"
+  },
+  "window-width": {
+    "description": "The initial window size. This size is in terminal grid cells by default. Both values must be set to take effect. If only one value is set, it is ignored. We don't currently support specifying a size in pixels but a future change can enable that. If this isn't specified, the app runtime will determine some default size. Note that the window manager may put limits on the size or override the size.",
+    "url": "https://ghostty.org/docs/config/reference#window-width"
+  },
+  "window-position-x": {
+    "description": "The starting window position. This position is in pixels and is relative to the top-left corner of the primary monitor. Both values must be set to take effect. If only one value is set, it is ignored. Note that the window manager may put limits on the position or override the position. For example, a tiling window manager may force the window to be a certain position to fit within the grid. There is nothing Ghostty will do about this, but it will make an effort.",
+    "url": "https://ghostty.org/docs/config/reference#window-position-x"
+  },
+  "window-position-y": {
+    "description": "The starting window position. This position is in pixels and is relative to the top-left corner of the primary monitor. Both values must be set to take effect. If only one value is set, it is ignored. Note that the window manager may put limits on the position or override the position. For example, a tiling window manager may force the window to be a certain position to fit within the grid. There is nothing Ghostty will do about this, but it will make an effort.",
+    "url": "https://ghostty.org/docs/config/reference#window-position-y"
+  },
+  "window-save-state": {
+    "description": "Whether to enable saving and restoring window state. Window state includes their position, size, tabs, splits, etc. Some window state requires shell integration, such as preserving working directories. See shell-integration for more information. There are three valid values for this configuration: default will use the default system behavior. On macOS, this will only save state if the application is forcibly terminated or if it is configured systemwide via Settings.app.",
+    "url": "https://ghostty.org/docs/config/reference#window-save-state"
+  },
+  "window-step-resize": {
+    "description": "Resize the window in discrete increments of the focused surface's cell size. If this is disabled, surfaces are resized in pixel increments. Currently only supported on macOS.",
+    "url": "https://ghostty.org/docs/config/reference#window-step-resize"
+  },
+  "window-new-tab-position": {
+    "description": "The position where new tabs are created. Valid values: current - Insert the new tab after the currently focused tab, or at the end if there are no focused tabs. end - Insert the new tab at the end of the tab list.",
+    "url": "https://ghostty.org/docs/config/reference#window-new-tab-position"
+  },
+  "window-show-tab-bar": {
+    "description": "Whether to show the tab bar. Valid values: always",
+    "url": "https://ghostty.org/docs/config/reference#window-show-tab-bar"
+  },
+  "window-titlebar-background": {
+    "description": "Background color for the window titlebar. This only takes effect if window-theme is set to ghostty. Currently only supported in the GTK app runtime. Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color.",
+    "url": "https://ghostty.org/docs/config/reference#window-titlebar-background"
+  },
+  "window-titlebar-foreground": {
+    "description": "Foreground color for the window titlebar. This only takes effect if window-theme is set to ghostty. Currently only supported in the GTK app runtime. Specified as either hex (#RRGGBB or RRGGBB) or a named X11 color.",
+    "url": "https://ghostty.org/docs/config/reference#window-titlebar-foreground"
+  },
+  "resize-overlay": {
+    "description": "This controls when resize overlays are shown. Resize overlays are a transient popup that shows the size of the terminal while the surfaces are being resized. The possible options are: The default is after-first.",
+    "url": "https://ghostty.org/docs/config/reference#resize-overlay"
+  },
+  "resize-overlay-position": {
+    "description": "If resize overlays are enabled, this controls the position of the overlay. The possible options are: The default is center.",
+    "url": "https://ghostty.org/docs/config/reference#resize-overlay-position"
+  },
+  "resize-overlay-duration": {
+    "description": "If resize overlays are enabled, this controls how long the overlay is visible on the screen before it is hidden. The default is ¾ of a second or 750 ms. The duration is specified as a series of numbers followed by time units. Whitespace is allowed between numbers and units. Each number and unit will be added together to form the total duration. The allowed time units are as follows:",
+    "url": "https://ghostty.org/docs/config/reference#resize-overlay-duration"
+  },
+  "focus-follows-mouse": {
+    "description": "If true, when there are multiple split panes, the mouse selects the pane that is focused. This only applies to the currently focused window; e.g. mousing over a split in an unfocused window will not focus that split and bring the window to front. Default is false.",
+    "url": "https://ghostty.org/docs/config/reference#focus-follows-mouse"
+  },
+  "clipboard-read": {
+    "description": "Whether to allow programs running in the terminal to read/write to the system clipboard (OSC 52, for googling). The default is to allow clipboard reading after prompting the user and allow writing unconditionally. Valid values are:",
+    "url": "https://ghostty.org/docs/config/reference#clipboard-read"
+  },
+  "clipboard-write": {
+    "description": "Whether to allow programs running in the terminal to read/write to the system clipboard (OSC 52, for googling). The default is to allow clipboard reading after prompting the user and allow writing unconditionally. Valid values are:",
+    "url": "https://ghostty.org/docs/config/reference#clipboard-write"
+  },
+  "clipboard-trim-trailing-spaces": {
+    "description": "Trims trailing whitespace on data that is copied to the clipboard. This does not affect data sent to the clipboard via clipboard-write. This only applies to trailing whitespace on lines that have other characters. Completely blank lines always have their whitespace trimmed.",
+    "url": "https://ghostty.org/docs/config/reference#clipboard-trim-trailing-spaces"
+  },
+  "clipboard-paste-protection": {
+    "description": "Require confirmation before pasting text that appears unsafe. This helps prevent a \"copy/paste attack\" where a user may accidentally execute unsafe commands by pasting text with newlines.",
+    "url": "https://ghostty.org/docs/config/reference#clipboard-paste-protection"
+  },
+  "clipboard-paste-bracketed-safe": {
+    "description": "If true, bracketed pastes will be considered safe. By default, bracketed pastes are considered safe. \"Bracketed\" pastes are pastes while the running program has bracketed paste mode enabled (a setting set by the running program, not the terminal emulator).",
+    "url": "https://ghostty.org/docs/config/reference#clipboard-paste-bracketed-safe"
+  },
+  "title-report": {
+    "description": "Enables or disabled title reporting (CSI 21 t). This escape sequence allows the running program to query the terminal title. This is a common security issue and is disabled by default. Warning This can expose sensitive information at best and enable arbitrary code execution at worst (with a maliciously crafted title and a minor amount of user interaction).",
+    "url": "https://ghostty.org/docs/config/reference#title-report"
+  },
+  "image-storage-limit": {
+    "description": "The total amount of bytes that can be used for image data (e.g. the Kitty image protocol) per terminal screen. The maximum value is 4,294,967,295 (4GiB). The default is 320MB. If this is set to zero, then all image protocols will be disabled. This value is separate for primary and alternate screens so the effective limit per surface is double.",
+    "url": "https://ghostty.org/docs/config/reference#image-storage-limit"
+  },
+  "copy-on-select": {
+    "description": "Whether to automatically copy selected text to the clipboard. true will prefer to copy to the selection clipboard, otherwise it will copy to the system clipboard. The value clipboard will always copy text to the selection clipboard as well as the system clipboard. Middle-click paste will always use the selection clipboard. Middle-click paste is always enabled even if this is false.",
+    "url": "https://ghostty.org/docs/config/reference#copy-on-select"
+  },
+  "right-click-action": {
+    "description": "The action to take when the user right-clicks on the terminal surface. Valid values: The default value is context-menu.",
+    "url": "https://ghostty.org/docs/config/reference#right-click-action"
+  },
+  "click-repeat-interval": {
+    "description": "The time in milliseconds between clicks to consider a click a repeat (double, triple, etc.) or an entirely new single click. A value of zero will use a platform-specific default. The default on macOS is determined by the OS settings. On every other platform it is 500ms.",
+    "url": "https://ghostty.org/docs/config/reference#click-repeat-interval"
+  },
+  "config-file": {
+    "description": "Additional configuration files to read. This configuration can be repeated to read multiple configuration files. Configuration files themselves can load more configuration files. Paths are relative to the file containing the config-file directive. For command-line arguments, paths are relative to the current working directory. Prepend a ? character to the file path to suppress errors if the file does not exist.",
+    "url": "https://ghostty.org/docs/config/reference#config-file"
+  },
+  "config-default-files": {
+    "description": "When this is true, the default configuration file paths will be loaded. The default configuration file paths are currently only the XDG config path ($XDG_CONFIG_HOME/ghostty/config.ghostty). If this is false, the default configuration paths will not be loaded. This is targeted directly at using Ghostty from the CLI in a way that minimizes external effects. This is a CLI-only configuration. Setting this in a configuration file will have no effect. It is not an error, but it will not do anything.",
+    "url": "https://ghostty.org/docs/config/reference#config-default-files"
+  },
+  "confirm-close-surface": {
+    "description": "Confirms that a surface should be closed before closing it. This defaults to true. If set to false, surfaces will close without any confirmation. This can also be set to always, which will always confirm closing a surface, even if shell integration says a process isn't running.",
+    "url": "https://ghostty.org/docs/config/reference#confirm-close-surface"
+  },
+  "quit-after-last-window-closed": {
+    "description": "Whether or not to quit after the last surface is closed. This defaults to false on macOS since that is standard behavior for a macOS application. On Linux, this defaults to true since that is generally expected behavior. On Linux, if this is true, Ghostty can delay quitting fully until a configurable amount of time has passed after the last window is closed. See the documentation of quit-after-last-window-closed-delay.",
+    "url": "https://ghostty.org/docs/config/reference#quit-after-last-window-closed"
+  },
+  "quit-after-last-window-closed-delay": {
+    "description": "Controls how long Ghostty will stay running after the last open surface has been closed. This only has an effect if quit-after-last-window-closed is also set to true. The minimum value for this configuration is 1s. Any values lower than this will be clamped to 1s. The duration is specified as a series of numbers followed by time units. Whitespace is allowed between numbers and units. Each number and unit will be added together to form the total duration.",
+    "url": "https://ghostty.org/docs/config/reference#quit-after-last-window-closed-delay"
+  },
+  "initial-window": {
+    "description": "This controls whether an initial window is created when Ghostty is run. Note that if quit-after-last-window-closed is true and quit-after-last-window-closed-delay is set, setting initial-window to false will mean that Ghostty will quit after the configured delay if no window is ever created. Only implemented on Linux and macOS.",
+    "url": "https://ghostty.org/docs/config/reference#initial-window"
+  },
+  "undo-timeout": {
+    "description": "The duration that undo operations remain available. After this time, the operation will be removed from the undo stack and cannot be undone. The default value is 5 seconds. This timeout applies per operation, meaning that if you perform multiple operations, each operation will have its own timeout. New operations do not reset the timeout of previous operations.",
+    "url": "https://ghostty.org/docs/config/reference#undo-timeout"
+  },
+  "quick-terminal-position": {
+    "description": "The position of the \"quick\" terminal window. To learn more about the quick terminal, see the documentation for the toggle_quick_terminal binding action. Valid values are: On macOS, changing this configuration requires restarting Ghostty completely.",
+    "url": "https://ghostty.org/docs/config/reference#quick-terminal-position"
+  },
+  "quick-terminal-size": {
+    "description": "The size of the quick terminal. The size can be specified either as a percentage of the screen dimensions (height/width), or as an absolute size in pixels. Percentage values are suffixed with % (e.g. 20%) while pixel values are suffixed with px (e.g. 300px). A bare value without a suffix is a config error.",
+    "url": "https://ghostty.org/docs/config/reference#quick-terminal-size"
+  },
+  "gtk-quick-terminal-layer": {
+    "description": "The layer of the quick terminal window. The higher the layer, the more windows the quick terminal may conceal. Valid values are: overlay",
+    "url": "https://ghostty.org/docs/config/reference#gtk-quick-terminal-layer"
+  },
+  "gtk-quick-terminal-namespace": {
+    "description": "The namespace for the quick terminal window. This is an identifier that is used by the Wayland compositor and/or scripts to determine the type of layer surfaces and to possibly apply unique effects. GTK Wayland only.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-quick-terminal-namespace"
+  },
+  "quick-terminal-screen": {
+    "description": "The screen where the quick terminal should show up. Valid values are: main - The screen that the operating system recommends as the main screen. On macOS, this is the screen that is currently receiving keyboard input. This screen is defined by the operating system and not chosen by Ghostty.",
+    "url": "https://ghostty.org/docs/config/reference#quick-terminal-screen"
+  },
+  "quick-terminal-animation-duration": {
+    "description": "Duration (in seconds) of the quick terminal enter and exit animation. Set it to 0 to disable animation completely. This can be changed at runtime. Only implemented on macOS.",
+    "url": "https://ghostty.org/docs/config/reference#quick-terminal-animation-duration"
+  },
+  "quick-terminal-autohide": {
+    "description": "Automatically hide the quick terminal when focus shifts to another window. Set it to false for the quick terminal to remain open even when it loses focus. Defaults to true on macOS and on false on Linux/BSD. This is because global shortcuts on Linux require system configuration and are considerably less accessible than on macOS, meaning that it is more preferable to keep the quick terminal open until the user has completed their task. This default may change in the future.",
+    "url": "https://ghostty.org/docs/config/reference#quick-terminal-autohide"
+  },
+  "quick-terminal-space-behavior": {
+    "description": "This configuration option determines the behavior of the quick terminal when switching between macOS spaces. macOS spaces are virtual desktops that can be manually created or are automatically created when an application is in full-screen mode. Valid values are: move - When switching to another space, the quick terminal will also moved to the current space.",
+    "url": "https://ghostty.org/docs/config/reference#quick-terminal-space-behavior"
+  },
+  "quick-terminal-keyboard-interactivity": {
+    "description": "Determines under which circumstances that the quick terminal should receive keyboard input. See the corresponding Wayland documentation for a more detailed explanation of the behavior of each option. Note The exact behavior of each option may differ significantly across compositors -- experiment with them on your system to find one that suits your liking!",
+    "url": "https://ghostty.org/docs/config/reference#quick-terminal-keyboard-interactivity"
+  },
+  "shell-integration": {
+    "description": "Whether to enable shell integration auto-injection or not. Shell integration greatly enhances the terminal experience by enabling a number of features: Working directory reporting so new tabs, splits inherit the previous terminal's working directory. Prompt marking that enables the \"jump_to_prompt\" keybinding.",
+    "url": "https://ghostty.org/docs/config/reference#shell-integration"
+  },
+  "shell-integration-features": {
+    "description": "Shell integration features to enable. These require our shell integration to be loaded, either automatically via shell-integration or manually. The format of this is a list of features to enable separated by commas. If you prefix a feature with no- then it is disabled. If you omit a feature, its default value is used, so you must explicitly disable features you don't want. You can also use true or false to turn all features on or off. Example: cursor, no-cursor, sudo, no-sudo, title, no-title",
+    "url": "https://ghostty.org/docs/config/reference#shell-integration-features"
+  },
+  "command-palette-entry": {
+    "description": "Custom entries into the command palette. Each entry requires the title, the corresponding action, and an optional description. Each field should be prefixed with the field name, a colon (:), and then the specified value. The syntax for actions is identical to the one for keybind actions. Whitespace in between fields is ignored. If you need to embed commas or any other special characters in the values, enclose the value in double quotes and it will be interpreted as a Zig string literal.",
+    "url": "https://ghostty.org/docs/config/reference#command-palette-entry"
+  },
+  "osc-color-report-format": {
+    "description": "Sets the reporting format for OSC sequences that request color information. Ghostty currently supports OSC 10 (foreground), OSC 11 (background), and OSC 4 (256 color palette) queries, and by default the reported values are scaled-up RGB values, where each component are 16 bits. This is how most terminals report these values. However, some legacy applications may require 8-bit, unscaled, components. We also support turning off reporting altogether. The components are lowercase hex values.",
+    "url": "https://ghostty.org/docs/config/reference#osc-color-report-format"
+  },
+  "vt-kam-allowed": {
+    "description": "If true, allows the \"KAM\" mode (ANSI mode 2) to be used within the terminal. KAM disables keyboard input at the request of the application. This is not a common feature and is not recommended to be enabled. This will not be documented further because if you know you need KAM, you know. If you don't know if you need KAM, you don't need it.",
+    "url": "https://ghostty.org/docs/config/reference#vt-kam-allowed"
+  },
+  "custom-shader": {
+    "description": "Custom shaders to run after the default shaders. This is a file path to a GLSL-syntax shader for all platforms. Warning Invalid shaders can cause Ghostty to become unusable such as by causing the window to be completely black. If this happens, you can unset this configuration to disable the shader.",
+    "url": "https://ghostty.org/docs/config/reference#custom-shader"
+  },
+  "custom-shader-animation": {
+    "description": "If true (default), the focused terminal surface will run an animation loop when custom shaders are used. This uses slightly more CPU (generally less than 10%) but allows the shader to animate. This only runs if there are custom shaders and the terminal is focused. If this is set to false, the terminal and custom shader will only render when the terminal is updated. This is more efficient but the shader will not animate.",
+    "url": "https://ghostty.org/docs/config/reference#custom-shader-animation"
+  },
+  "bell-features": {
+    "description": "Bell features to enable if bell support is available in your runtime. Not all features are available on all runtimes. The format of this is a list of features to enable separated by commas. If you prefix a feature with no- then it is disabled. If you omit a feature, its default value is used. Valid values are: system",
+    "url": "https://ghostty.org/docs/config/reference#bell-features"
+  },
+  "bell-audio-path": {
+    "description": "If audio is an enabled bell feature, this is a path to an audio file. If the path is not absolute, it is considered relative to the directory of the configuration file that it is referenced from, or from the current working directory if this is used as a CLI flag. The path may be prefixed with ~/ to reference the user's home directory.",
+    "url": "https://ghostty.org/docs/config/reference#bell-audio-path"
+  },
+  "bell-audio-volume": {
+    "description": "If audio is an enabled bell feature, this is the volume to play the audio file at (relative to the system volume). This is a floating point number ranging from 0.0 (silence) to 1.0 (as loud as possible). The default is 0.5.",
+    "url": "https://ghostty.org/docs/config/reference#bell-audio-volume"
+  },
+  "app-notifications": {
+    "description": "Control the in-app notifications that Ghostty shows. On Linux (GTK), in-app notifications show up as toasts. Toasts appear overlaid on top of the terminal window. They are used to show information that is not critical but may be important. Possible notifications are:",
+    "url": "https://ghostty.org/docs/config/reference#app-notifications"
+  },
+  "macos-non-native-fullscreen": {
+    "description": "If anything other than false, fullscreen mode on macOS will not use the native fullscreen, but make the window fullscreen without animations and using a new space. It's faster than the native fullscreen mode since it doesn't use animations. Important: tabs DO NOT WORK in this mode. Non-native fullscreen removes the titlebar and macOS native tabs require the titlebar. If you use tabs, you should not use this mode.",
+    "url": "https://ghostty.org/docs/config/reference#macos-non-native-fullscreen"
+  },
+  "macos-window-buttons": {
+    "description": "Whether the window buttons in the macOS titlebar are visible. The window buttons are the colored buttons in the upper left corner of most macOS apps, also known as the traffic lights, that allow you to close, miniaturize, and zoom the window. This setting has no effect when window-decoration = none or macos-titlebar-style = hidden, as the window buttons are always hidden in these modes. Valid values are:",
+    "url": "https://ghostty.org/docs/config/reference#macos-window-buttons"
+  },
+  "macos-titlebar-style": {
+    "description": "The style of the macOS titlebar. Available values are: \"native\", \"transparent\", \"tabs\", and \"hidden\". The \"native\" style uses the native macOS titlebar with zero customization. The titlebar will match your window theme (see window-theme). The \"transparent\" style is the same as \"native\" but the titlebar will be transparent and allow your window background color to come through.",
+    "url": "https://ghostty.org/docs/config/reference#macos-titlebar-style"
+  },
+  "macos-titlebar-proxy-icon": {
+    "description": "Whether the proxy icon in the macOS titlebar is visible. The proxy icon is the icon that represents the folder of the current working directory. You can see this very clearly in the macOS built-in Terminal.app titlebar. The proxy icon is only visible with the native macOS titlebar style. Valid values are:",
+    "url": "https://ghostty.org/docs/config/reference#macos-titlebar-proxy-icon"
+  },
+  "macos-dock-drop-behavior": {
+    "description": "Controls the windowing behavior when dropping a file or folder onto the Ghostty icon in the macOS dock. Valid values are: The default value is new-tab.",
+    "url": "https://ghostty.org/docs/config/reference#macos-dock-drop-behavior"
+  },
+  "macos-option-as-alt": {
+    "description": "macOS doesn't have a distinct \"alt\" key and instead has the \"option\" key which behaves slightly differently. On macOS by default, the option key plus a character will sometimes produce a Unicode character. For example, on US standard layouts option-b produces \"∫\". This may be undesirable if you want to use \"option\" as an \"alt\" key for keybindings in terminal programs or shells. This configuration lets you change the behavior so that option is treated as alt.",
+    "url": "https://ghostty.org/docs/config/reference#macos-option-as-alt"
+  },
+  "macos-window-shadow": {
+    "description": "Whether to enable the macOS window shadow. The default value is true. With some window managers and window transparency settings, you may find false more visually appealing.",
+    "url": "https://ghostty.org/docs/config/reference#macos-window-shadow"
+  },
+  "macos-hidden": {
+    "description": "If true, the macOS icon in the dock and app switcher will be hidden. This is mainly intended for those primarily using the quick-terminal mode. Note that setting this to true means that keyboard layout changes will no longer be automatic. Control whether macOS app is excluded from the dock and app switcher, a \"hidden\" state. This is mainly intended for those primarily using quick-terminal mode, but is a general configuration for any use case.",
+    "url": "https://ghostty.org/docs/config/reference#macos-hidden"
+  },
+  "macos-auto-secure-input": {
+    "description": "If true, Ghostty on macOS will automatically enable the \"Secure Input\" feature when it detects that a password prompt is being displayed. \"Secure Input\" is a macOS security feature that prevents applications from reading keyboard events. This can always be enabled manually using the Ghostty > Secure Keyboard Entry menu item. Note that automatic password prompt detection is based on heuristics and may not always work as expected.",
+    "url": "https://ghostty.org/docs/config/reference#macos-auto-secure-input"
+  },
+  "macos-secure-input-indication": {
+    "description": "If true, Ghostty will show a graphical indication when secure input is enabled. This indication is generally recommended to know when secure input is enabled. Normally, secure input is only active when a password prompt is displayed or it is manually (and typically temporarily) enabled. However, if you always have secure input enabled, the indication can be distracting and you may want to disable it.",
+    "url": "https://ghostty.org/docs/config/reference#macos-secure-input-indication"
+  },
+  "macos-applescript": {
+    "description": "If true, Ghostty exposes and handles the built-in AppleScript dictionary on macOS. If false, all AppleScript interactions are disabled. This includes AppleScript commands and AppleScript object lookup for windows, tabs, and terminals. The default is true.",
+    "url": "https://ghostty.org/docs/config/reference#macos-applescript"
+  },
+  "macos-icon": {
+    "description": "Customize the macOS app icon. This only affects the icon that appears in the dock, application switcher, etc. This does not affect the icon in Finder because that is controlled by a hardcoded value in the signed application bundle and can't be changed at runtime. For more details on what exactly is affected, see the NSApplication.icon Apple documentation; that is the API that is being used to set the icon. Valid values:",
+    "url": "https://ghostty.org/docs/config/reference#macos-icon"
+  },
+  "macos-custom-icon": {
+    "description": "The absolute path to the custom icon file. Supported formats include PNG, JPEG, and ICNS. Defaults to ~/.config/ghostty/Ghostty.icns",
+    "url": "https://ghostty.org/docs/config/reference#macos-custom-icon"
+  },
+  "macos-icon-frame": {
+    "description": "The material to use for the frame of the macOS app icon. Valid values: Note",
+    "url": "https://ghostty.org/docs/config/reference#macos-icon-frame"
+  },
+  "macos-icon-ghost-color": {
+    "description": "The color of the ghost in the macOS app icon. Note This configuration is required when macos-icon is set to custom-style.",
+    "url": "https://ghostty.org/docs/config/reference#macos-icon-ghost-color"
+  },
+  "macos-icon-screen-color": {
+    "description": "The color of the screen in the macOS app icon. The screen is a linear gradient so you can specify multiple colors that make up the gradient. Up to 64 comma-separated colors may be specified as either hex (#RRGGBB or RRGGBB) or as named X11 colors. The first color is the bottom of the gradient and the last color is the top of the gradient. Note",
+    "url": "https://ghostty.org/docs/config/reference#macos-icon-screen-color"
+  },
+  "macos-shortcuts": {
+    "description": "Whether macOS Shortcuts are allowed to control Ghostty. Ghostty exposes a number of actions that allow Shortcuts to control and interact with Ghostty. This includes creating new terminals, sending text to terminals, running commands, invoking any keybind action, etc. This is a powerful feature but can be a security risk if a malicious shortcut is able to be installed and executed. Therefore, this configuration allows you to disable this feature.",
+    "url": "https://ghostty.org/docs/config/reference#macos-shortcuts"
+  },
+  "linux-cgroup": {
+    "description": "Put every surface (tab, split, window) into a transient systemd scope. This allows per-surface resource management. For example, if a shell program is using too much memory, only that shell will be killed by the oom monitor instead of the entire Ghostty process. Similarly, if a shell program is using too much CPU, only that surface will be CPU-throttled. This will cause startup times to be slower (a hundred milliseconds or so), so the default value is \"single-instance.",
+    "url": "https://ghostty.org/docs/config/reference#linux-cgroup"
+  },
+  "linux-cgroup-memory-limit": {
+    "description": "Memory limit for any individual terminal process (tab, split, window, etc.) in bytes. If this is unset then no memory limit will be set. Note that this sets the MemoryHigh setting on the transient systemd scope, which is a soft limit. You should configure something like systemd-oom to handle killing processes that have too much memory pressure. Changing this value and reloading the config will not affect existing surfaces.",
+    "url": "https://ghostty.org/docs/config/reference#linux-cgroup-memory-limit"
+  },
+  "linux-cgroup-processes-limit": {
+    "description": "Number of processes limit for any individual terminal process (tab, split, window, etc.). If this is unset then no limit will be set. Note that this sets the TasksMax setting on the transient systemd scope, which is a hard limit. Changing this value and reloading the config will not affect existing surfaces.",
+    "url": "https://ghostty.org/docs/config/reference#linux-cgroup-processes-limit"
+  },
+  "linux-cgroup-hard-fail": {
+    "description": "If this is false, then creating a transient systemd scope (for linux-cgroup) will be allowed to fail and the failure is ignored. This is useful if you view cgroup isolation as a \"nice to have\" and not a critical resource management feature, because surface creation will not fail if systemd APIs fail. If this is true, then any transient systemd scope creation failure will cause surface creation to fail. Changing this value and reloading the config will not affect existing surfaces.",
+    "url": "https://ghostty.org/docs/config/reference#linux-cgroup-hard-fail"
+  },
+  "gtk-opengl-debug": {
+    "description": "Enable or disable GTK's OpenGL debugging logs. The default is true for debug builds, false for all others.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-opengl-debug"
+  },
+  "gtk-single-instance": {
+    "description": "If true, the Ghostty GTK application will run in single-instance mode: each new ghostty process launched will result in a new window if there is already a running process. If false, each new ghostty process will launch a separate application. If detect, Ghostty will assume true (single instance) unless one of the following scenarios is found:",
+    "url": "https://ghostty.org/docs/config/reference#gtk-single-instance"
+  },
+  "gtk-titlebar": {
+    "description": "When enabled, the full GTK titlebar is displayed instead of your window manager's simple titlebar. The behavior of this option will vary with your window manager. This option does nothing when window-decoration is none or when running under macOS.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-titlebar"
+  },
+  "gtk-tabs-location": {
+    "description": "Determines the side of the screen that the GTK tab bar will stick to. Top, bottom, and hidden are supported. The default is top. When hidden is set, a tab button displaying the number of tabs will appear in the title bar. It has the ability to open a tab overview for displaying tabs. Alternatively, you can use the toggle_tab_overview action in a keybind if your window doesn't have a title bar, or you can switch tabs with keybinds.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-tabs-location"
+  },
+  "gtk-titlebar-hide-when-maximized": {
+    "description": "If this is true, the titlebar will be hidden when the window is maximized, and shown when the titlebar is unmaximized. GTK only.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-titlebar-hide-when-maximized"
+  },
+  "gtk-toolbar-style": {
+    "description": "Determines the appearance of the top and bottom bars tab bar. Valid values are:",
+    "url": "https://ghostty.org/docs/config/reference#gtk-toolbar-style"
+  },
+  "gtk-titlebar-style": {
+    "description": "The style of the GTK titlebar. Available values are native and tabs. The native titlebar style is a traditional titlebar with a title, a few buttons and window controls. A separate tab bar will show up below the titlebar if you have multiple tabs open in the window. The tabs titlebar merges the tab bar and the traditional titlebar. This frees up vertical space on your screen if you use multiple tabs.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-titlebar-style"
+  },
+  "gtk-wide-tabs": {
+    "description": "If true (default), then the Ghostty GTK tabs will be \"wide.\" Wide tabs are the new typical Gnome style where tabs fill their available space. If you set this to false then tabs will only take up space they need, which is the old style.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-wide-tabs"
+  },
+  "gtk-custom-css": {
+    "description": "Custom CSS files to be loaded. GTK CSS documentation can be found at the following links: Launch Ghostty with env GTK_DEBUG=interactive ghostty to tweak Ghostty's CSS in real time using the GTK Inspector. Errors in your CSS files would also be reported in the terminal you started Ghostty from. See https://developer.gnome.org/documentation/tools/inspector.html for more information about the GTK Inspector.",
+    "url": "https://ghostty.org/docs/config/reference#gtk-custom-css"
+  },
+  "desktop-notifications": {
+    "description": "If true (default), applications running in the terminal can show desktop notifications using certain escape sequences such as OSC 9 or OSC 777.",
+    "url": "https://ghostty.org/docs/config/reference#desktop-notifications"
+  },
+  "progress-style": {
+    "description": "If true (default), applications running in the terminal can show graphical progress bars using the ConEmu OSC 9;4 escape sequence. If false, progress bar sequences are silently ignored.",
+    "url": "https://ghostty.org/docs/config/reference#progress-style"
+  },
+  "bold-color": {
+    "description": "Modifies the color used for bold text in the terminal. This can be set to a specific color, using the same format as background or foreground (e.g. #RRGGBB but other formats are also supported; see the aforementioned documentation). If a specific color is set, this color will always be used for the default bold text color. It will set the rest of the bold colors to bright. This can also be set to bright, which uses the bright color palette for bold text.",
+    "url": "https://ghostty.org/docs/config/reference#bold-color"
+  },
+  "faint-opacity": {
+    "description": "The opacity level (opposite of transparency) of the faint text. A value of 1 is fully opaque and a value of 0 is fully transparent. A value less than 0 or greater than 1 will be clamped to the nearest valid value. Available since Ghostty 1.2.0.",
+    "url": "https://ghostty.org/docs/config/reference#faint-opacity"
+  },
+  "term": {
+    "description": "This will be used to set the TERM environment variable. HACK: We set this with an xterm prefix because vim uses that to enable key protocols (specifically this will enable modifyOtherKeys), among other features. An option exists in vim to modify this: :set keyprotocol=ghostty:kitty, however a bug in the implementation prevents it from working properly. https://github.com/vim/vim/pull/13211 fixes this.",
+    "url": "https://ghostty.org/docs/config/reference#term"
+  },
+  "enquiry-response": {
+    "description": "String to send when we receive ENQ (0x05) from the command that we are running. Defaults to an empty string if not set.",
+    "url": "https://ghostty.org/docs/config/reference#enquiry-response"
+  },
+  "async-backend": {
+    "description": "Configures the low-level API to use for async IO, eventing, etc. Most users should leave this set to auto. This will automatically detect scenarios where APIs may not be available (for example io_uring on certain hardened kernels) and fall back to a different API. However, if you want to force a specific backend for any reason, you can set this here. Based on various benchmarks, we haven't found a statistically significant difference between the backends with regards to memory, CPU, or latency.",
+    "url": "https://ghostty.org/docs/config/reference#async-backend"
+  },
+  "auto-update": {
+    "description": "Control the auto-update functionality of Ghostty. This is only supported on macOS currently, since Linux builds are distributed via package managers that are not centrally controlled by Ghostty. Checking or downloading an update does not send any information to the project beyond standard network information mandated by the underlying protocols. To put it another way: Ghostty doesn't explicitly add any tracking to the update process.",
+    "url": "https://ghostty.org/docs/config/reference#auto-update"
+  },
+  "auto-update-channel": {
+    "description": "The release channel to use for auto-updates. The default value of this matches the release channel of the currently running Ghostty version. If you download a pre-release version of Ghostty then this will be set to tip and you will receive pre-release updates. If you download a stable version of Ghostty then this will be set to stable and you will receive stable updates. Valid values are:",
+    "url": "https://ghostty.org/docs/config/reference#auto-update-channel"
+  }
+}
