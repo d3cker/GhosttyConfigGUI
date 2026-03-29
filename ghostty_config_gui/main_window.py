@@ -32,7 +32,7 @@ from .themes import list_themes, load_theme, ThemeColors
 
 def _load_doc_reference() -> dict[str, dict[str, str]]:
     """Load ghostty_options.json for doc URLs and descriptions."""
-    ref_path = Path(__file__).resolve().parent.parent / "ghostty_options.json"
+    ref_path = Path(__file__).resolve().parent / "ghostty_options.json"
     try:
         with open(ref_path, encoding="utf-8") as f:
             return json.load(f)
