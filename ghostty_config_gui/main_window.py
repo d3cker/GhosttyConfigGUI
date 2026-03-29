@@ -2,6 +2,8 @@
 Main window for Ghostty Configuration GUI.
 """
 
+import html
+import json
 import sys
 from pathlib import Path
 
@@ -24,6 +26,20 @@ from .config_data import (
 )
 from .config_io import default_config_path, parse_config, write_config
 from .themes import list_themes, load_theme, ThemeColors
+
+
+# ── Documentation Reference ──────────────────────────────────────────────────
+
+def _load_doc_reference() -> dict[str, dict[str, str]]:
+    """Load ghostty_options.json for doc URLs and descriptions."""
+    ref_path = Path(__file__).resolve().parent.parent / "ghostty_options.json"
+    try:
+        with open(ref_path, encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+_DOC_REFERENCE: dict[str, dict[str, str]] = _load_doc_reference()
 
 
 # ── Font Resolution Helper ────────────────────────────────────────────────────
@@ -125,16 +141,39 @@ class OptionEditor(QWidget):
         layout = QHBoxLayout(self)
         layout.setContentsMargins(0, 2, 0, 2)
 
-        # Label
-        label = QLabel(self.option.name)
+        # Label (clickable link to docs if available)
+        ref = _DOC_REFERENCE.get(self.option.name, {})
+        doc_url = ref.get("url", "")
+        full_desc = ref.get("description", self.option.description)
+
+        label = QLabel()
         label.setFixedWidth(260)
-        label.setToolTip(self.option.description)
-        font = label.font()
-        font.setFamily("monospace")
-        font.setPointSize(9)
-        label.setFont(font)
-        if self.option.platform:
-            label.setText(f"{self.option.name}  [{self.option.platform}]")
+        if doc_url:
+            link_html = (
+                f'<a href="{doc_url}" '
+                f'style="color: #d2d2d2; text-decoration: none; '
+                f'font-family: monospace; font-size: 9pt;">'
+                f'{html.escape(self.option.name)}</a>'
+            )
+            if self.option.platform:
+                link_html += (
+                    f'&nbsp;&nbsp;<span style="color: #888; font-family: monospace; '
+                    f'font-size: 9pt;">[{self.option.platform}]</span>'
+                )
+            label.setTextFormat(Qt.TextFormat.RichText)
+            label.setOpenExternalLinks(True)
+            label.setText(link_html)
+        else:
+            label.setText(self.option.name)
+            font = label.font()
+            font.setFamily("monospace")
+            font.setPointSize(9)
+            label.setFont(font)
+            if self.option.platform:
+                label.setText(f"{self.option.name}  [{self.option.platform}]")
+
+        tooltip = f'<p style="max-width:400px;">{html.escape(full_desc)}</p>'
+        label.setToolTip(tooltip)
         layout.addWidget(label)
 
         opt = self.option
