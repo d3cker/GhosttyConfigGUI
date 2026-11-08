@@ -1,0 +1,834 @@
+{
+ "generated_from": "Ghostty 1.4.0",
+ "actions": [
+  {
+   "name": "ignore",
+   "summary": "Ignore this key combination.",
+   "doc": "Ignore this key combination.\n\nGhostty will not process this combination nor forward it to the child\nprocess within the terminal, but it may still be processed by the OS or\nother applications.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "unbind",
+   "summary": "Unbind a previously bound key binding.",
+   "doc": "Unbind a previously bound key binding.\n\nThis cannot unbind bindings that were not bound by Ghostty or the user\n(e.g. bindings set by the OS or some other application).",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "csi",
+   "summary": "Send a CSI sequence.",
+   "doc": "Send a CSI sequence.\n\nThe value should be the CSI sequence without the CSI header (`ESC [` or\n`\\x1b[`).\n\nFor example, `csi:0m` can be sent to reset all styles of the current text.",
+   "param": "required",
+   "values": [],
+   "hint": "CSI sequence without the ESC [ header, e.g. 0m"
+  },
+  {
+   "name": "esc",
+   "summary": "Send an `ESC` sequence.",
+   "doc": "Send an `ESC` sequence.",
+   "param": "required",
+   "values": [],
+   "hint": "sequence to send after ESC"
+  },
+  {
+   "name": "text",
+   "summary": "Send the specified text.",
+   "doc": "Send the specified text.\n\nUses Zig string literal syntax. This is currently not validated.\nIf the text is invalid (i.e. contains an invalid escape sequence),\nthe error will currently only show up in logs.",
+   "param": "required",
+   "values": [],
+   "hint": "text to send (Zig string syntax), e.g. \\x15"
+  },
+  {
+   "name": "cursor_key",
+   "summary": "Send data to the pty depending on whether cursor key mode is enabled (`application`) or disabled (`normal`).",
+   "doc": "Send data to the pty depending on whether cursor key mode is enabled\n(`application`) or disabled (`normal`).",
+   "param": "required",
+   "values": [],
+   "hint": "data to send (see docs)"
+  },
+  {
+   "name": "reset",
+   "summary": "Reset the terminal.",
+   "doc": "Reset the terminal.\n\nThis can fix a lot of issues when a running program puts the terminal\ninto a broken state, equivalent to running the `reset` command.\n\nIf you do this while in a TUI program such as vim, this may break\nthe program. If you do this while in a shell, you may have to press\nenter after to get a new prompt.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "copy_to_clipboard",
+   "summary": "Copy the selected text to the clipboard.",
+   "doc": "Copy the selected text to the clipboard.\n\nValid values:\n\n  - `plain`\n\n    Copy the selection as plain text only.\n\n  - `vt`\n\n    Copy the selection as plain text, preserving terminal escape\n    sequences (such as colors and styles).\n\n  - `html`\n\n    Copy the selection as HTML, preserving colors and styles as\n    HTML markup.\n\n  - `mixed` (default)\n\n    Place multiple representations on the clipboard at once\n    (e.g. plain text and HTML), each tagged with its content type\n    so the receiving OS or application can pick the most appropriate\n    representation when pasting.",
+   "param": "optional",
+   "values": [
+    "plain",
+    "vt",
+    "html",
+    "mixed"
+   ],
+   "hint": "format (default: mixed)"
+  },
+  {
+   "name": "paste_from_clipboard",
+   "summary": "Paste the contents of the default clipboard.",
+   "doc": "Paste the contents of the default clipboard.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "paste_from_selection",
+   "summary": "Paste the contents of the selection clipboard.",
+   "doc": "Paste the contents of the selection clipboard.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "copy_url_to_clipboard",
+   "summary": "If there is a URL under the cursor, copy it to the default clipboard.",
+   "doc": "If there is a URL under the cursor, copy it to the default clipboard.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "copy_title_to_clipboard",
+   "summary": "Copy the terminal title to the clipboard. If the terminal title is not set or is empty this has no effect.",
+   "doc": "Copy the terminal title to the clipboard. If the terminal title is not\nset or is empty this has no effect.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "increase_font_size",
+   "summary": "Increase the font size by the specified amount in points (pt).",
+   "doc": "Increase the font size by the specified amount in points (pt).\n\nFor example, `increase_font_size:1.5` will increase the font size\nby 1.5 points.",
+   "param": "required",
+   "values": [
+    "1",
+    "0.5",
+    "2"
+   ],
+   "hint": "points"
+  },
+  {
+   "name": "decrease_font_size",
+   "summary": "Decrease the font size by the specified amount in points (pt).",
+   "doc": "Decrease the font size by the specified amount in points (pt).\n\nFor example, `decrease_font_size:1.5` will decrease the font size\nby 1.5 points.",
+   "param": "required",
+   "values": [
+    "1",
+    "0.5",
+    "2"
+   ],
+   "hint": "points"
+  },
+  {
+   "name": "reset_font_size",
+   "summary": "Reset the font size to the original configured size.",
+   "doc": "Reset the font size to the original configured size.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "set_font_size",
+   "summary": "Set the font size to the specified size in points (pt).",
+   "doc": "Set the font size to the specified size in points (pt).\n\nFor example, `set_font_size:14.5` will set the font size\nto 14.5 points.",
+   "param": "required",
+   "values": [
+    "12",
+    "13",
+    "14",
+    "16"
+   ],
+   "hint": "points"
+  },
+  {
+   "name": "search",
+   "summary": "Start a search for the given text. If the text is empty, then the search is canceled. A canceled search will not disable any GUI elements showing search. For that, the explicit end_search binding should be used.",
+   "doc": "Start a search for the given text. If the text is empty, then\nthe search is canceled. A canceled search will not disable any GUI\nelements showing search. For that, the explicit end_search binding\nshould be used.\n\nIf a previous search is active, it is replaced.",
+   "param": "required",
+   "values": [],
+   "hint": "search text"
+  },
+  {
+   "name": "search_selection",
+   "summary": "Start a search for the current text selection. If there is no selection, this does nothing. If a search is already active, this changes the search terms.",
+   "doc": "Start a search for the current text selection. If there is no\nselection, this does nothing. If a search is already active, this\nchanges the search terms.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "navigate_search",
+   "summary": "Navigate the search results. If there is no active search, this is not performed.",
+   "doc": "Navigate the search results. If there is no active search, this\nis not performed.\n\nValid values: `previous`, `next`.",
+   "param": "required",
+   "values": [
+    "next",
+    "previous"
+   ],
+   "hint": ""
+  },
+  {
+   "name": "start_search",
+   "summary": "Start a search if it isn't started already. This doesn't set any search terms, but opens the UI for searching.",
+   "doc": "Start a search if it isn't started already. This doesn't set any\nsearch terms, but opens the UI for searching.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "end_search",
+   "summary": "End the current search if any and hide any GUI elements.",
+   "doc": "End the current search if any and hide any GUI elements.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "clear_screen",
+   "summary": "Clear the screen and all scrollback.",
+   "doc": "Clear the screen and all scrollback.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "select_all",
+   "summary": "Select all text on the screen.",
+   "doc": "Select all text on the screen.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "scroll_to_top",
+   "summary": "Scroll to the top of the screen.",
+   "doc": "Scroll to the top of the screen.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "scroll_to_bottom",
+   "summary": "Scroll to the bottom of the screen.",
+   "doc": "Scroll to the bottom of the screen.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "scroll_to_selection",
+   "summary": "Scroll to the selected text.",
+   "doc": "Scroll to the selected text.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "scroll_to_row",
+   "summary": "Scroll to the given absolute row in the screen with 0 being the first row.",
+   "doc": "Scroll to the given absolute row in the screen with 0 being\nthe first row.",
+   "param": "required",
+   "values": [
+    "0"
+   ],
+   "hint": "absolute row (0 = first)"
+  },
+  {
+   "name": "scroll_page_up",
+   "summary": "Scroll the screen up by one page.",
+   "doc": "Scroll the screen up by one page.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "scroll_page_down",
+   "summary": "Scroll the screen down by one page.",
+   "doc": "Scroll the screen down by one page.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "scroll_page_fractional",
+   "summary": "Scroll the screen by the specified fraction of a page.",
+   "doc": "Scroll the screen by the specified fraction of a page.\n\nPositive values scroll downwards, and negative values scroll upwards.\n\nFor example, `scroll_page_fractional:0.5` would scroll the screen\ndownwards by half a page, while `scroll_page_fractional:-1.5` would\nscroll it upwards by one and a half pages.",
+   "param": "required",
+   "values": [
+    "0.5",
+    "-0.5",
+    "1",
+    "-1"
+   ],
+   "hint": "fraction of a page (+down / -up)"
+  },
+  {
+   "name": "scroll_page_lines",
+   "summary": "Scroll the screen by the specified amount of lines.",
+   "doc": "Scroll the screen by the specified amount of lines.\n\nPositive values scroll downwards, and negative values scroll upwards.\n\nFor example, `scroll_page_lines:3` would scroll the screen downwards\nby 3 lines, while `scroll_page_lines:-10` would scroll it upwards by 10\nlines.",
+   "param": "required",
+   "values": [
+    "1",
+    "-1",
+    "3",
+    "-3"
+   ],
+   "hint": "lines (+down / -up)"
+  },
+  {
+   "name": "adjust_selection",
+   "summary": "Adjust the current selection in the given direction or position, relative to the cursor.",
+   "doc": "Adjust the current selection in the given direction or position,\nrelative to the cursor.\n\nWARNING: This does not create a new selection, and does nothing when\nthere currently isn't one.\n\nValid arguments are:\n\n  - `left`, `right`\n\n    Adjust the selection one cell to the left or right respectively.\n\n  - `up`, `down`\n\n    Adjust the selection one line upwards or downwards respectively.\n\n  - `page_up`, `page_down`\n\n    Adjust the selection one page upwards or downwards respectively.\n\n  - `home`, `end`\n\n    Adjust the selection to the top-left or the bottom-right corner\n    of the screen respectively.\n\n  - `beginning_of_line`, `end_of_line`\n\n    Adjust the selection to the beginning or the end of the line\n    respectively.",
+   "param": "required",
+   "values": [
+    "left",
+    "right",
+    "up",
+    "down",
+    "page_up",
+    "page_down",
+    "home",
+    "end",
+    "beginning_of_line",
+    "end_of_line"
+   ],
+   "hint": ""
+  },
+  {
+   "name": "jump_to_prompt",
+   "summary": "Jump the viewport forward or back by the given number of prompts.",
+   "doc": "Jump the viewport forward or back by the given number of prompts.\n\nRequires shell integration.\n\nPositive values scroll downwards, and negative values scroll upwards.",
+   "param": "required",
+   "values": [
+    "-1",
+    "1"
+   ],
+   "hint": "prompts (+down / -up)"
+  },
+  {
+   "name": "write_scrollback_file",
+   "summary": "Write the entire scrollback into a temporary file with the specified action. The action determines what to do with the filepath.",
+   "doc": "Write the entire scrollback into a temporary file with the specified\naction. The action determines what to do with the filepath.\n\nValid actions are:\n\n  - `copy`\n\n    Copy the file path into the clipboard.\n\n  - `paste`\n\n    Paste the file path into the terminal.\n\n  - `open`\n\n    Open the file in the default OS editor for text files.\n\n    The default OS editor is determined by using `open` on macOS\n    and `xdg-open` on Linux.",
+   "param": "required",
+   "values": [
+    "copy",
+    "paste",
+    "open",
+    "copy,plain",
+    "paste,plain",
+    "open,plain",
+    "copy,vt",
+    "open,vt",
+    "copy,html",
+    "open,html"
+   ],
+   "hint": "action[,format]"
+  },
+  {
+   "name": "write_screen_file",
+   "summary": "Write the contents of the screen into a temporary file with the specified action.",
+   "doc": "Write the contents of the screen into a temporary file with the\nspecified action.\n\nSee `write_scrollback_file` for possible actions.",
+   "param": "required",
+   "values": [
+    "copy",
+    "paste",
+    "open",
+    "copy,plain",
+    "paste,plain",
+    "open,plain",
+    "copy,vt",
+    "open,vt",
+    "copy,html",
+    "open,html"
+   ],
+   "hint": "action[,format]"
+  },
+  {
+   "name": "write_selection_file",
+   "summary": "Write the currently selected text into a temporary file with the specified action.",
+   "doc": "Write the currently selected text into a temporary file with the\nspecified action.\n\nSee `write_scrollback_file` for possible actions.\n\nDoes nothing when no text is selected.",
+   "param": "required",
+   "values": [
+    "copy",
+    "paste",
+    "open",
+    "copy,plain",
+    "paste,plain",
+    "open,plain",
+    "copy,vt",
+    "open,vt",
+    "copy,html",
+    "open,html"
+   ],
+   "hint": "action[,format]"
+  },
+  {
+   "name": "new_window",
+   "summary": "Open a new window.",
+   "doc": "Open a new window.\n\nIf the application isn't currently focused,\nthis will bring it to the front.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "new_tab",
+   "summary": "Open a new tab.",
+   "doc": "Open a new tab.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "previous_tab",
+   "summary": "Go to the previous tab.",
+   "doc": "Go to the previous tab.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "next_tab",
+   "summary": "Go to the next tab.",
+   "doc": "Go to the next tab.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "last_tab",
+   "summary": "Go to the last tab.",
+   "doc": "Go to the last tab.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "goto_tab",
+   "summary": "Go to the tab with the specific index, starting from 1.",
+   "doc": "Go to the tab with the specific index, starting from 1.\n\nIf the tab number is higher than the number of tabs,\nthis will go to the last tab.",
+   "param": "required",
+   "values": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9"
+   ],
+   "hint": "tab index (1-based)"
+  },
+  {
+   "name": "move_tab",
+   "summary": "Moves a tab by a relative offset.",
+   "doc": "Moves a tab by a relative offset.\n\nPositive values move the tab forwards, and negative values move it\nbackwards. If the new position is out of bounds, it is wrapped around\ncyclically within the tab list.\n\nFor example, `move_tab:1` moves the tab one position forwards, and if\nit was already the last tab in the list, it wraps around and becomes\nthe first tab in the list. Likewise, `move_tab:-1` moves the tab one\nposition backwards, and if it was the first tab, then it will become\nthe last tab.",
+   "param": "required",
+   "values": [
+    "1",
+    "-1"
+   ],
+   "hint": "relative offset"
+  },
+  {
+   "name": "move_tab_to_new_window",
+   "summary": "Move a tab to a new window.",
+   "doc": "Move a tab to a new window.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_tab_overview",
+   "summary": "Toggle the tab overview.",
+   "doc": "Toggle the tab overview.\n\nThis is only supported on Linux and when the system's libadwaita\nversion is 1.4 or newer. The current libadwaita version can be\nfound by running `ghostty +version`.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "prompt_surface_title",
+   "summary": "Change the title of the current focused surface via a pop-up prompt.",
+   "doc": "Change the title of the current focused surface via a pop-up prompt.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "prompt_tab_title",
+   "summary": "Change the title of the current tab via a pop-up prompt. The title set via this prompt overrides any title set by the terminal and persists across focus changes within the tab.",
+   "doc": "Change the title of the current tab via a pop-up prompt. The\ntitle set via this prompt overrides any title set by the terminal\nand persists across focus changes within the tab.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "prompt_window_title",
+   "summary": "Change the title of the current window via a pop-up prompt. The title set via this prompt overrides any title set by the terminal and persists across focus changes within the tab.",
+   "doc": "Change the title of the current window via a pop-up prompt. The\ntitle set via this prompt overrides any title set by the terminal\nand persists across focus changes within the tab.\n\nOnly implemented on Linux.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "set_surface_title",
+   "summary": "Set the title for the current focused surface.",
+   "doc": "Set the title for the current focused surface.\n\nIf the title is empty, the surface title is reset to an empty title.",
+   "param": "optional",
+   "values": [],
+   "hint": "title (empty clears)"
+  },
+  {
+   "name": "set_tab_title",
+   "summary": "Set the title for the current focused tab.",
+   "doc": "Set the title for the current focused tab.\n\nIf the title is empty, the tab title override is cleared.",
+   "param": "optional",
+   "values": [],
+   "hint": "title (empty clears)"
+  },
+  {
+   "name": "set_window_title",
+   "summary": "Set the title for the current focused window.",
+   "doc": "Set the title for the current focused window.\n\nIf the title is empty, the tab title override is cleared.\n\nOnly implement on Linux.",
+   "param": "optional",
+   "values": [],
+   "hint": "title (empty clears)"
+  },
+  {
+   "name": "new_split",
+   "summary": "Create a new split in the specified direction.",
+   "doc": "Create a new split in the specified direction.\n\nValid arguments:\n\n  - `right`, `down`, `left`, `up`\n\n    Creates a new split in the corresponding direction.\n\n  - `auto`\n\n    Creates a new split along the larger direction.\n    For example, if the parent split is currently wider than it is tall,\n    then a left-right split would be created, and vice versa.",
+   "param": "required",
+   "values": [
+    "right",
+    "down",
+    "left",
+    "up",
+    "auto"
+   ],
+   "hint": ""
+  },
+  {
+   "name": "goto_split",
+   "summary": "Focus on a split either in the specified direction (`right`, `down`, `left` and `up`), or in the adjacent split in the order of creation (`previous` and `next`).",
+   "doc": "Focus on a split either in the specified direction (`right`, `down`,\n`left` and `up`), or in the adjacent split in the order of creation\n(`previous` and `next`).",
+   "param": "required",
+   "values": [
+    "right",
+    "down",
+    "left",
+    "up",
+    "previous",
+    "next"
+   ],
+   "hint": ""
+  },
+  {
+   "name": "goto_window",
+   "summary": "Focus on either the previous window or the next one ('previous', 'next')",
+   "doc": "Focus on either the previous window or the next one ('previous', 'next')",
+   "param": "required",
+   "values": [
+    "previous",
+    "next"
+   ],
+   "hint": ""
+  },
+  {
+   "name": "toggle_split_zoom",
+   "summary": "Zoom in or out of the current split.",
+   "doc": "Zoom in or out of the current split.\n\nWhen a split is zoomed into, it will take up the entire space in\nthe current tab, hiding other splits. The tab or tab bar would also\nreflect this by displaying an icon indicating the zoomed state.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_readonly",
+   "summary": "Toggle read-only mode for the current surface.",
+   "doc": "Toggle read-only mode for the current surface.\n\nWhen a surface is in read-only mode:\n  - No input is sent to the PTY (mouse events, key encoding)\n  - Input can still be used at the terminal level to make selections,\n    copy/paste (keybinds), scroll, etc.\n  - Warn before quit is always enabled in this state even if an active\n    process is not running",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "resize_split",
+   "summary": "Resize the current split in the specified direction and amount in pixels. The two arguments should be joined with a comma (`,`), like in `resize_split:up,10`.",
+   "doc": "Resize the current split in the specified direction and amount in\npixels. The two arguments should be joined with a comma (`,`),\nlike in `resize_split:up,10`.",
+   "param": "required",
+   "values": [
+    "right,10",
+    "down,10",
+    "left,10",
+    "up,10"
+   ],
+   "hint": "direction,pixels"
+  },
+  {
+   "name": "equalize_splits",
+   "summary": "Equalize the size of all splits in the current window.",
+   "doc": "Equalize the size of all splits in the current window.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "reset_window_size",
+   "summary": "Reset the window to the default size. The \"default size\" is the size that a new window would be created with. This has no effect if the window is fullscreen.",
+   "doc": "Reset the window to the default size. The \"default size\" is the\nsize that a new window would be created with. This has no effect\nif the window is fullscreen.\n\nOnly implemented on macOS.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "inspector",
+   "summary": "Control the visibility of the terminal inspector.",
+   "doc": "Control the visibility of the terminal inspector.\n\nValid arguments: `toggle`, `show`, `hide`.",
+   "param": "required",
+   "values": [
+    "toggle",
+    "show",
+    "hide"
+   ],
+   "hint": ""
+  },
+  {
+   "name": "show_gtk_inspector",
+   "summary": "Show the GTK inspector.",
+   "doc": "Show the GTK inspector.\n\nHas no effect on macOS.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "show_on_screen_keyboard",
+   "summary": "Show the on-screen keyboard if one is present.",
+   "doc": "Show the on-screen keyboard if one is present.\n\nOnly implemented on Linux (GTK). On GNOME, the \"Screen Keyboard\"\naccessibility feature must be turned on, which can be found under\nSettings > Accessibility > Typing. Other platforms are as of now\nuntested.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "open_config",
+   "summary": "Open the configuration file in an editor.",
+   "doc": "Open the configuration file in an editor.\n\n* `os_open`: Use the OS's default editor to edit the configuration file.\n  This is the default action. (Available since 1.4.0)\n* `new_window`: Launch the editor specified in `$EDITOR` or `$VISUAL` in\n  a new Ghostty window to edit the configuration file. GTK only. (Available\n  since 1.4.0.)",
+   "param": "optional",
+   "values": [
+    "os_open",
+    "new_window"
+   ],
+   "hint": "(default: os_open)"
+  },
+  {
+   "name": "reload_config",
+   "summary": "Reload the configuration.",
+   "doc": "Reload the configuration.\n\nThe exact meaning depends on the app runtime in use, but this usually\ninvolves re-reading the configuration file and applying any changes\nNote that not all changes can be applied at runtime.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "close_surface",
+   "summary": "Close the current \"surface\", whether that is a window, tab, split, etc.",
+   "doc": "Close the current \"surface\", whether that is a window, tab, split, etc.\n\nThis might trigger a close confirmation popup, depending on the value\nof the `confirm-close-surface` configuration setting.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "close_tab",
+   "summary": "Close the specified tabs and all splits therein.",
+   "doc": "Close the specified tabs and all splits therein.\n\nValid values:\n\n  - `this` (default)\n\n    Close the current tab and all splits within it.\n\n  - `other`\n\n    Close every tab in the current window except the current tab.\n\n  - `right`\n\n    Close every tab to the right of the current tab.\n\nThis might trigger a close confirmation popup, depending on the value\nof the `confirm-close-surface` configuration setting.",
+   "param": "optional",
+   "values": [
+    "this",
+    "other",
+    "right"
+   ],
+   "hint": "(default: this)"
+  },
+  {
+   "name": "close_window",
+   "summary": "Close the current window and all tabs and splits therein.",
+   "doc": "Close the current window and all tabs and splits therein.\n\nThis might trigger a close confirmation popup, depending on the value\nof the `confirm-close-surface` configuration setting.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "close_all_windows",
+   "summary": "Close all windows.",
+   "doc": "Close all windows.\n\nWARNING: This action has been deprecated and has no effect on either\nLinux or macOS. Users are instead encouraged to use `all:close_window`\ninstead.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_maximize",
+   "summary": "Maximize or unmaximize the current window.",
+   "doc": "Maximize or unmaximize the current window.\n\nOn macOS, this zooms the window, which is the closest equivalent\nsince macOS has no concept of a maximized window.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_fullscreen",
+   "summary": "Fullscreen or unfullscreen the current window.",
+   "doc": "Fullscreen or unfullscreen the current window.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_window_decorations",
+   "summary": "Toggle window decorations (titlebar, buttons, etc.) for the current window.",
+   "doc": "Toggle window decorations (titlebar, buttons, etc.) for the current window.\n\nOnly implemented on Linux.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_window_float_on_top",
+   "summary": "Toggle whether the terminal window should always float on top of other windows even when unfocused.",
+   "doc": "Toggle whether the terminal window should always float on top of other\nwindows even when unfocused.\n\nTerminal windows always start as normal (not float-on-top) windows.\n\nOnly implemented on macOS.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_secure_input",
+   "summary": "Toggle secure input mode.",
+   "doc": "Toggle secure input mode.\n\nThis is used to prevent apps from monitoring your keyboard input\nwhen entering passwords or other sensitive information.\n\nThis applies to the entire application, not just the focused terminal.\nYou must manually untoggle it or quit Ghostty entirely to disable it.\n\nOnly implemented on macOS, as this uses a built-in system API.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_mouse_reporting",
+   "summary": "Toggle mouse reporting on or off.",
+   "doc": "Toggle mouse reporting on or off.\n\nWhen mouse reporting is disabled, mouse events will not be reported to\nterminal applications even if they request it. This allows you to always\nuse the mouse for selection and other terminal UI interactions without\napplications capturing mouse input.\n\nThis can also be controlled via the `mouse-reporting` configuration\noption.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_command_palette",
+   "summary": "Toggle the command palette.",
+   "doc": "Toggle the command palette.\n\nThe command palette is a popup that lets you see what actions\nyou can perform, their associated keybindings (if any), a search bar\nto filter the actions, and the ability to then execute the action.\n\nThis requires libadwaita 1.5 or newer on Linux. The current libadwaita\nversion can be found by running `ghostty +version`.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_quick_terminal",
+   "summary": "Toggle the quick terminal.",
+   "doc": "Toggle the quick terminal.\n\nThe quick terminal, also known as the \"Quake-style\" or drop-down\nterminal, is a terminal window that appears on demand from a keybinding,\noften sliding in from a screen edge such as the top. This is useful for\nquick access to a terminal without having to open a new window or tab.\n\nThe terminal state is preserved between appearances, so showing the\nquick terminal after it was already hidden would display the same\nwindow instead of creating a new one.\n\nAs quick terminals are often useful when other windows are currently\nfocused, they are best used with *global* keybinds. For example, one\ncan define the following key bind to toggle the quick terminal from\nanywhere within the system by pressing `` Cmd+` ``:\n\n```ini\nkeybind = global:cmd+backquote=toggle_quick_terminal\n```\n\nThe quick terminal has some limitations:\n\n  - Only one quick terminal instance can exist at a time.\n\n  - Unlike normal terminal windows, the quick terminal will not be\n    restored when the application is restarted on systems that support\n    window restoration like macOS.\n\n  - On Linux, the quick terminal is only supported on Wayland and not\n    X11, and only on Wayland compositors that support the `wlr-layer-shell-v1`\n    protocol. In practice, this means that only GNOME users would not be\n    able to use this feature.\n\n  - On Linux, slide-in animations are only supported on KDE, and when\n    the \"Sliding Popups\" KWin plugin is enabled.\n\n    If you do not have this plugin enabled, open System Settings > Apps\n    & Windows > Window Management > Desktop Effects, and enable the\n    plugin in the plugin list. Ghostty would then need to be restarted\n    fully for this to take effect.\n\n  - Quick terminal tabs are only supported on Linux and not on macOS.\n    This is because tabs on macOS require a title bar.\n\n  - On macOS, a fullscreened quick terminal will always be in non-native\n    fullscreen mode. This is a requirement due to how the quick terminal\n    is rendered.\n\nSee the various configurations for the quick terminal in the\nconfiguration file to customize its behavior.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_visibility",
+   "summary": "Show or hide all windows. If all windows become shown, we also ensure Ghostty becomes focused. When hiding all windows, focus is yielded to the next application as determined by the OS.",
+   "doc": "Show or hide all windows. If all windows become shown, we also ensure\nGhostty becomes focused. When hiding all windows, focus is yielded\nto the next application as determined by the OS.\n\nNote: When the focused surface is fullscreen, this method does nothing.\n\nOnly implemented on macOS.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "toggle_background_opacity",
+   "summary": "Toggle the window background opacity between transparent and opaque.",
+   "doc": "Toggle the window background opacity between transparent and opaque.\n\nThis does nothing when `background-opacity` is set to 1 or above.\n\nWhen `background-opacity` is less than 1, this action will either make\nthe window transparent or not depending on its current transparency state.\n\nOnly implemented on macOS.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "check_for_updates",
+   "summary": "Check for updates.",
+   "doc": "Check for updates.\n\nOnly implemented on macOS.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "undo",
+   "summary": "Undo the last undoable action for the focused surface or terminal, if possible. This can undo actions such as closing tabs or windows.",
+   "doc": "Undo the last undoable action for the focused surface or terminal,\nif possible. This can undo actions such as closing tabs or\nwindows.\n\nNot every action in Ghostty can be undone or redone. The list\nof actions support undo/redo is currently limited to:\n\n  - New window, close window\n  - New tab, close tab\n  - New split, close split\n\nAll actions are only undoable/redoable for a limited time.\nFor example, restoring a closed split can only be done for\nsome number of seconds since the split was closed. The exact\namount is configured with the `undo-timeout` configuration settings.\n\nThe undo/redo actions being limited ensures that there is\nbounded memory usage over time, closed surfaces don't continue running\nin the background indefinitely, and the keybinds become available\nfor terminal applications to use.\n\nOnly implemented on macOS.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "redo",
+   "summary": "Redo the last undoable action for the focused surface or terminal, if possible. See \"undo\" for more details on what can and cannot be undone or redone.",
+   "doc": "Redo the last undoable action for the focused surface or terminal,\nif possible. See \"undo\" for more details on what can and cannot\nbe undone or redone.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "end_key_sequence",
+   "summary": "End the currently active key sequence, if any, and flush the keys up to this point to the terminal, excluding the key that triggered this action.",
+   "doc": "End the currently active key sequence, if any, and flush the\nkeys up to this point to the terminal, excluding the key that\ntriggered this action.\n\nFor example: `ctrl+w>escape=end_key_sequence` would encode\n`ctrl+w` to the terminal and exit the key sequence.\n\nNormally, an invalid sequence will reset the key sequence and\nflush all data including the invalid key. This action allows\nyou to flush only the prior keys, which is useful when you want\nto bind something like a control key (`ctrl+w`) but not send\nadditional inputs.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "activate_key_table",
+   "summary": "Activate a named key table (see `keybind` configuration documentation). The named key table will remain active until `deactivate_key_table` is called. If you want a one-shot key table activation, use the `activate_key_table_once` action instead.",
+   "doc": "Activate a named key table (see `keybind` configuration documentation).\nThe named key table will remain active until `deactivate_key_table`\nis called. If you want a one-shot key table activation, use the\n`activate_key_table_once` action instead.\n\nIf the named key table does not exist, this action has no effect\nand performable will report false.\n\nIf the named key table is already the currently active key table,\nthis action has no effect and performable will report false.",
+   "param": "required",
+   "values": [],
+   "hint": "key table name"
+  },
+  {
+   "name": "activate_key_table_once",
+   "summary": "Same as activate_key_table, but the key table will only be active until the first valid keybinding from that table is used (including any defined `catch_all` bindings).",
+   "doc": "Same as activate_key_table, but the key table will only be active\nuntil the first valid keybinding from that table is used (including\nany defined `catch_all` bindings).\n\nThe \"once\" check is only done if this is the currently active\nkey table. If another key table is activated later, then this\ntable will remain active until it pops back out to being the\nactive key table.",
+   "param": "required",
+   "values": [],
+   "hint": "key table name"
+  },
+  {
+   "name": "deactivate_key_table",
+   "summary": "Deactivate the currently active key table, if any. The next most recently activated key table (if any) will become active again. If no key table is active, this action has no effect.",
+   "doc": "Deactivate the currently active key table, if any. The next most\nrecently activated key table (if any) will become active again.\nIf no key table is active, this action has no effect.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "deactivate_all_key_tables",
+   "summary": "Deactivate all active key tables. If no active key table exists, this will report performable as false.",
+   "doc": "Deactivate all active key tables. If no active key table exists,\nthis will report performable as false.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "quit",
+   "summary": "Quit Ghostty.",
+   "doc": "Quit Ghostty.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  },
+  {
+   "name": "crash",
+   "summary": "Crash Ghostty in the desired thread for the focused surface.",
+   "doc": "Crash Ghostty in the desired thread for the focused surface.\n\nWARNING: This is a hard crash (panic) and data can be lost.\n\nThe purpose of this action is to test crash handling. For some\nusers, it may be useful to test crash reporting functionality in\norder to determine if it all works as expected.\n\nThe value determines the crash location:\n\n  - `main`\n\n    Crash on the main (GUI) thread.\n\n  - `io`\n\n    Crash on the IO thread for the focused surface.\n\n  - `render`\n\n    Crash on the render thread for the focused surface.",
+   "param": "none",
+   "values": [],
+   "hint": ""
+  }
+ ]
+}

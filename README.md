@@ -20,6 +20,7 @@ Ghostty uses a plain text config file (`~/.config/ghostty/config.ghostty`). This
 - **Font preview** — live sample text rendered with your selected font family and size
 - **Color palette editor** — visual ANSI 16-color palette with clickable swatches and color pickers
 - **Terminal preview** — simulated terminal showing syntax highlighting, cursor style, and fonts in real time
+- **Keybind editor** — record a trigger by pressing the keys (sequences like `ctrl+a>n` too), pick the action from a searchable list with docs, choose arguments from a dropdown; flags duplicate triggers and shows which Ghostty defaults you override
 - **Search** — filter options by name or description
 - **Config file I/O** — reads/writes `config.ghostty`, preserves comments and ordering. Only saves values you explicitly change
 
