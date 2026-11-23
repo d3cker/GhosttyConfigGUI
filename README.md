@@ -13,6 +13,7 @@ Ghostty uses a plain text config file (`~/.config/ghostty/config.ghostty`). This
 | ![Font config](img/fonts.png) | ![Theme preview](img/theme.png) |
 | ![Color](img/colors.png) | ![Custom Color](img/custom_color.png) |
 | ![macOS settings](img/macos.png) | ![Linux and GTK](img/linux_and_gtk.png) |
+| ![Keybind editor](img/keybinds.png) | |
 ## Features
 
 - **200+ config options** organized into 15 categories (Font, Colors, Cursor, Window, Keyboard, Shell, Quick Terminal, macOS, Linux & GTK, etc.)
@@ -20,6 +21,7 @@ Ghostty uses a plain text config file (`~/.config/ghostty/config.ghostty`). This
 - **Font preview** — live sample text rendered with your selected font family and size
 - **Color palette editor** — visual ANSI 16-color palette with clickable swatches and color pickers
 - **Terminal preview** — simulated terminal showing syntax highlighting, cursor style, and fonts in real time
+- **Keybind editor** — record a trigger by pressing the keys (sequences like `ctrl+a>n` too), pick the action from a searchable list with docs, choose arguments from a dropdown; flags duplicate triggers and shows which Ghostty defaults you override
 - **Search** — filter options by name or description
 - **Config file I/O** — reads/writes `config.ghostty`, preserves comments and ordering. Only saves values you explicitly change
 

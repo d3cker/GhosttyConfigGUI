@@ -26,6 +26,7 @@ from .config_data import (
 )
 from .config_io import default_config_path, parse_config, write_config
 from .themes import list_themes, load_theme, ThemeColors
+from .keybinds import KeybindEditor
 
 
 # ── Documentation Reference ──────────────────────────────────────────────────
@@ -697,8 +698,10 @@ class TerminalPreview(QFrame):
 class CategoryPage(QScrollArea):
     """Scrollable page for one category of options."""
     value_changed = pyqtSignal(str, str)
+    navigate_requested = pyqtSignal(str)  # category name
 
-    def __init__(self, options: list[ConfigOption], values: dict[str, list[str]], parent=None):
+    def __init__(self, options: list[ConfigOption], values: dict[str, list[str]],
+                 search_mode: bool = False, parent=None):
         super().__init__(parent)
         self.setWidgetResizable(True)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -707,8 +710,21 @@ class CategoryPage(QScrollArea):
         layout = QVBoxLayout(container)
         layout.setSpacing(2)
 
-        self._editors: dict[str, OptionEditor] = {}
+        self._editors: dict[str, OptionEditor | KeybindEditor] = {}
         for opt in options:
+            if opt.name == "keybind":
+                if search_mode:
+                    # Keybinds are edited only on their own page, so there is a
+                    # single source of truth for the (multi-entry) value.
+                    btn = QPushButton("Edit keybinds on the Keyboard page →")
+                    btn.clicked.connect(lambda _, c=opt.category: self.navigate_requested.emit(c))
+                    layout.addWidget(btn)
+                else:
+                    kb = KeybindEditor(values.get("keybind", []), from_config="keybind" in values)
+                    kb.value_changed.connect(self.value_changed.emit)
+                    self._editors[opt.name] = kb
+                    layout.addWidget(kb)
+                continue
             from_config = opt.name in values
             val = values[opt.name][0] if from_config else ""
             editor = OptionEditor(opt, val, from_config=from_config)
@@ -719,7 +735,7 @@ class CategoryPage(QScrollArea):
         layout.addStretch()
         self.setWidget(container)
 
-    def get_dirty_values(self) -> dict[str, str]:
+    def get_dirty_values(self) -> dict[str, str | list[str]]:
         """Return only values the user explicitly changed or that came from config."""
         return {
             name: ed.get_value()
@@ -810,6 +826,7 @@ class GhosttyConfigWindow(QMainWindow):
 
         right_layout.addStretch()
         splitter.addWidget(right)
+        self._preview_panel = right
 
         splitter.setSizes([195, 685, 400])
 
@@ -925,6 +942,9 @@ class GhosttyConfigWindow(QMainWindow):
             for name, val in page.get_dirty_values().items():
                 if not val or val == "(default)":
                     continue
+                if isinstance(val, list):  # multi-entry editors (keybind)
+                    result[name] = val
+                    continue
                 # Palette is managed by the palette preview panel, skip here
                 if name == "palette":
                     continue
@@ -947,6 +967,8 @@ class GhosttyConfigWindow(QMainWindow):
     def _on_category_changed(self, row: int):
         if 0 <= row < len(CATEGORIES):
             self._pages.setCurrentIndex(row)
+            # The keybind editor needs the width; previews don't apply there.
+            self._preview_panel.setVisible(CATEGORIES[row] != "Keyboard")
 
     def _on_value_changed(self, name: str, value: str):
         self._modified = True
@@ -1033,6 +1055,13 @@ class GhosttyConfigWindow(QMainWindow):
                     except ValueError:
                         pass
 
+    def _go_to_category(self, category: str):
+        self._search.clear()
+        if category in CATEGORIES:
+            row = CATEGORIES.index(category)
+            self._cat_list.setCurrentRow(row)
+            self._on_category_changed(row)
+
     def _on_search(self, text: str):
         text = text.strip().lower()
         if not text:
@@ -1054,8 +1083,9 @@ class GhosttyConfigWindow(QMainWindow):
         self._pages.removeWidget(old)
         old.deleteLater()
 
-        self._search_page = CategoryPage(matching, self._values)
+        self._search_page = CategoryPage(matching, self._values, search_mode=True)
         self._search_page.value_changed.connect(self._on_value_changed)
+        self._search_page.navigate_requested.connect(self._go_to_category)
         search_idx = self._pages.addWidget(self._search_page)
         self._pages.setCurrentIndex(search_idx)
 
